@@ -1,0 +1,9 @@
+FROM lyswhut/any-listen-web-server:0.12.0@sha256:65effcc642158186e5dcf7033d3571935f795104146627339363ed23239a263e
+
+ARG MOBILE_REVISION=local
+LABEL org.opencontainers.image.source="https://github.com/forestsheep911/any-listen" \
+      org.opencontainers.image.revision="${MOBILE_REVISION}" \
+      org.opencontainers.image.title="Any Listen mobile web"
+
+COPY --chown=1001:1001 build/public/ /server/public/
+RUN node -e 'const fs=require("fs");const p="/server/public/";const files=fs.readdirSync(p).filter(n=>/^view-main\.ipc\..*\.js$/.test(n));if(files.length!==1)throw Error("Expected one original IPC preload");const index=p+"index.html";let html=fs.readFileSync(index,"utf8");if(!html.includes("view-main.ipc."))html=html.replace("<head>",`<head><script type="module" src="./${files[0]}"></script>`);fs.writeFileSync(index,html)'
