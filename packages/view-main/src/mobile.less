@@ -220,6 +220,12 @@
     [data-mobile-settings] .settings-item-content {
       margin-left: 8px;
     }
+    [data-mobile-settings] :is(.settings-app-container, .settings-extension-container) { flex-direction: column; }
+    [data-mobile-settings] :is(.settings-app-list, .settings-extension-list) { flex: none; width: auto; max-width: none; margin: 0 12px 8px; overflow-x: auto; }
+    [data-mobile-settings] :is(.settings-app-list, .settings-extension-list) .list { display: flex; width: max-content; min-width: 100%; height: 44px; }
+    [data-mobile-settings] :is(.settings-app-list, .settings-extension-list) .list-item { flex: none; max-width: none; line-height: 44px; padding: 0 12px; }
+    [data-mobile-settings] label { display: inline-flex; align-items: center; min-height: 44px; }
+    [data-mobile-settings] .settings-list-container { min-height: 0; }
     [data-mobile-settings]
       :is(.p, .settings-item-selection, .settings-item-input, .settings-item-radio-group, .settings-item-config-checkbox) {
       display: flex;
