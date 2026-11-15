@@ -1,6 +1,6 @@
 # Mobile web presentation
 
-The web build uses an inclusive 767 CSS pixel breakpoint. A shared matchMedia state owns only presentation: narrow screens temporarily fill the viewport and use MiniBar; widening restores saved web window geometry and player style. Resizing does not save mobile choices into desktop preferences. The media listener is removed on release and replaced on reconnect.
+The web build adapts at widths up to 767 CSS pixels, and at widths up to 1023 when height is at most 500 pixels for phone landscape. A shared matchMedia state owns only presentation. Phone screens temporarily fill the viewport and use MiniBar; widening restores saved web window geometry and player style. Resizing does not save mobile choices into desktop preferences. The media listener is removed on release and replaced on reconnect.
 
 The bottom navigation exposes library, search, history, extensions, and settings. Library opens the one existing Aside/MyList tree as a drawer, with close, backdrop, Escape, focus containment, and selection handling (including the currently selected list). Search explains the extension requirement when no online resource is available. The drawer footer links to the fork source.
 

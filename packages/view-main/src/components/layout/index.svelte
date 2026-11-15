@@ -79,7 +79,7 @@
   .library-shell :global(.aside) { width: 100%; max-width: none; }
   .playbar-shell { flex: none; }
   .mobile-nav { display: none; }
-  @media (max-width: 767PX) {
+  @media (max-width: 767PX), (max-width: 1023PX) and (max-height: 500PX) {
     :global(html.web) {
       #app-main, #app-right { min-width: 0; min-height: 0; }
       .library-shell { display: none; }

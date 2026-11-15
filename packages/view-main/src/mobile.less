@@ -1,5 +1,5 @@
 // The html selector keeps CSS pixel touch sizes out of postcss-pxtorem.
-@media (max-width: 767px) {
+@media (max-width: 767px), (max-width: 1023px) and (max-height: 500px) {
   html.web {
     &,
     &.fullscreen {
@@ -358,7 +358,7 @@
     }
   }
 }
-@media (max-width: 767px) and (max-height: 500px) {
+@media (max-width: 1023px) and (max-height: 500px) {
   html.web .player-detail-main .left-info {
     flex-direction: row;
     gap: 16px;
