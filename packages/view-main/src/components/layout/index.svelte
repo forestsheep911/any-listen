@@ -25,6 +25,7 @@
     drawer?.querySelector<HTMLButtonElement>('button')?.focus()
   }
   const drawerKeys = (event: KeyboardEvent) => {
+    if (!mobileViewport.active || !drawerOpen) return
     if (event.key === 'Escape') closeDrawer()
     if (event.key !== 'Tab' || !drawer) return
     const items = Array.from(drawer.querySelectorAll<HTMLElement>('button, a, input, [tabindex="0"]')).filter((el) => el.getClientRects().length)

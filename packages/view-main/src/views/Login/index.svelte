@@ -34,7 +34,7 @@
   })
 </script>
 
-<div class="view-container container">
+<div class="view-container container" data-mobile-login>
   <div class="login-content">
     <h2 class="login-title">Any Listen</h2>
     <form

@@ -5,6 +5,8 @@
     body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
     #root, #body, #container { min-width: 0; min-height: 0; border-radius: 0; box-shadow: none; }
     #view { min-height: 0; min-width: 0; }
+    [data-mobile-login] .login-content { width: calc(100% - 40PX); max-width: 350PX; }
+    [data-mobile-login] :is(.input, .btn) { height: 44PX; min-height: 44PX; }
     input, textarea, select { font-size: 16PX !important; max-width: 100%; }
     button, a { touch-action: manipulation; }
     [data-mobile-header] { height: 58PX; padding-top: env(safe-area-inset-top); box-sizing: content-box; }
