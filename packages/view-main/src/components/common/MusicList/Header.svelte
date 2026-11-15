@@ -41,7 +41,7 @@
   } = $props()
 </script>
 
-<div class="header">
+<div class="header" data-mobile-library-header>
   <div class="left">
     <Image src={listinfo.pic} icon={listinfo.picIcon} />
   </div>

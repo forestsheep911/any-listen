@@ -49,7 +49,7 @@
     aria-label={mobileViewport.active ? '曲库' : undefined} tabindex="-1"
     inert={mobileViewport.active && !drawerOpen} onkeydown={drawerKeys}
     onkeyup={(event) => { if (mobileViewport.active && (event.key === 'Enter' || event.key === ' ') && event.target instanceof Element && event.target.closest('[data-mobile-select-list]')) closeDrawer() }}
-    onclick={(event) => { if (mobileViewport.active && event.target instanceof Element && event.target.closest('a[href], [data-mobile-select-list]')) closeDrawer() }}>
+    onclickcapture={(event) => { if (mobileViewport.active && event.target instanceof Element && event.target.closest('a[href], [data-mobile-select-list]')) closeDrawer() }}>
     {#if mobileViewport.active}<button class="drawer-close" onclick={closeDrawer}>关闭曲库 ×</button>{/if}
     <Aside />
     {#if mobileViewport.active}<a class="mobile-source" href="https://github.com/forestsheep911/any-listen/tree/mobile-web" target="_blank" rel="noreferrer">开源代码 ↗</a>{/if}

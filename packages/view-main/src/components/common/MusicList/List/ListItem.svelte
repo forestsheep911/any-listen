@@ -52,6 +52,7 @@
 
   const handleClick = (event: KeyboardEvent | Event) => {
     if ('key' in event) {
+      if (event.target !== event.currentTarget) return
       if (event.repeat || event.key != 'Enter') return
       onclick(true)
     } else {
