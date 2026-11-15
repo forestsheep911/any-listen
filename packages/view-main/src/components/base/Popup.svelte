@@ -123,7 +123,7 @@
 {#if render}
   <Portal to="#root">
     <div
-      class={['popup', { top: isShowTop, active: anim }]}
+      data-mobile-popup class={['popup', { top: isShowTop, active: anim }]}
       style={popupStyle}
       inert={!anim}
       onclick={(e) => {

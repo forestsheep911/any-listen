@@ -17,7 +17,7 @@
   })
 </script>
 
-<div class="container" bind:this={domContainer}>
+<div class="container" data-mobile-play-buttons bind:this={domContainer}>
   <button class="btn" aria-label={$t('player__prev')} onclick={async () => skipPrev()}>
     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width={iconSize} height={iconSize} viewBox="0 0 24 24">
       <use xlink:href="#icon-skip-prev" />

@@ -51,7 +51,7 @@
   })
 </script>
 
-<button class="content" onclick={handleShowPopup} onmouseenter={handlMsEnter} onmouseleave={handlMsLeave}>
+<button data-mobile-mini-progress class="content" onclick={handleShowPopup} onmouseenter={handlMsEnter} onmouseleave={handlMsLeave}>
   <div bind:this={domBtn} class="time-content">
     <span>{$progress.nowPlayTimeStr}</span>
     <span class="dv">/</span>

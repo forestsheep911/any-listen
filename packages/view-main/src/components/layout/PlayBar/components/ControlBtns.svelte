@@ -11,7 +11,7 @@
   // import { t } from '@/plugins/i18n'
 </script>
 
-<div class="container">
+<div class="container" data-mobile-player-extras>
   <!-- <button class="titleBtn" aria-label="$t('player__add_music_to')" onclick="addMusicTo">
     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" width="90%" viewBox="0 0 512 512" space="preserve">
       <use xlink:href="#icon-add-2" />

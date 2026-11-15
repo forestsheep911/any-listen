@@ -6,7 +6,7 @@
   const activeView = $derived<(typeof viewTypes)[number]>(viewTypes.find((t) => t == $query.type) ?? 'app')
 </script>
 
-<div class="view-container container">
+<div class="view-container container" data-mobile-settings>
   <Header activeview={activeView} />
   {#if activeView == 'app'}
     {#await import('./AppSetting/AppSetting.svelte') then { default: AppSetting }}

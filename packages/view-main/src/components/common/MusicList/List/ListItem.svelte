@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { mobileViewport } from '@/shared/browser/mobile.svelte'
   import Badge from '@/components/base/Badge.svelte'
   import Image from '@/components/base/Image.svelte'
 
@@ -81,7 +82,7 @@
 </script>
 
 <div
-  class="container"
+  class="container" data-mobile-music-row
   class:selected
   class:active
   class:selectedactive
@@ -116,6 +117,12 @@
       </div>
     {/if}
   </div>
+  {#if mobileViewport.active}
+    <div class="mobile-row-actions">
+      <button aria-label={$t('player__play')} onclick={(event) => { event.stopPropagation(); onplay?.() }}>▶</button>
+      <button aria-label="更多操作" onclick={(event) => { event.stopPropagation(); oncontextmenu?.(event) }}>⋯</button>
+    </div>
+  {/if}
   <div class="list-item-cell auto name-cell">
     <div class="name-left">
       <div class="select name" aria-label={musicinfo.name}>{musicinfo.name}</div>
@@ -125,7 +132,7 @@
         {/each}
       </div>
     </div>
-    {#if isShowActionBtn.val}
+    {#if isShowActionBtn.val && !mobileViewport.active}
       <div class="name-right">
         {#if hovered}
           <div class="auto-hide-btns" transition:fade={{ duration: 200 }}>
@@ -150,13 +157,13 @@
       </div>
     {/if}
   </div>
-  <div class="list-item-cell" style="flex: 0 0 22%;">
+  <div class="list-item-cell" data-mobile-secondary style="flex: 0 0 22%;">
     <span class="select" aria-label={musicinfo.singer}>{musicinfo.singer}</span>
   </div>
-  <div class="list-item-cell" style="flex: 0 0 22%;">
+  <div class="list-item-cell" data-mobile-secondary style="flex: 0 0 22%;">
     <span class="select" aria-label={musicinfo.meta.albumName}>{musicinfo.meta.albumName}</span>
   </div>
-  <div class="list-item-cell" style="flex: 0 0 9%;">
+  <div class="list-item-cell" data-mobile-secondary style="flex: 0 0 9%;">
     <span class="no-select">{musicinfo.interval || '--/--'}</span>
   </div>
 </div>

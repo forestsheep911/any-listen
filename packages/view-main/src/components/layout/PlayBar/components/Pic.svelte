@@ -7,10 +7,10 @@
   let pic = $derived($musicInfo.pic)
 </script>
 
-<div class="container">
+<div class="container" data-mobile-art>
   <button
     type="button"
-    class="btn"
+    class="btn" aria-label="打开播放器"
     onclick={() => {
       setShowPlayDetail(true)
     }}

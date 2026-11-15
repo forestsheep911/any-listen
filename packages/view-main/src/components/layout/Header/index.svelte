@@ -7,7 +7,7 @@
 
 {#if import.meta.env.VITE_IS_DESKTOP}
   <div class="toolbar drag-no-any-modal">
-    <div class="left">
+    <div class="left" data-mobile-header-search>
       <SearchInput />
     </div>
     <!-- <SearchInput /> -->
@@ -19,8 +19,8 @@
   </div>
 {/if}
 {#if import.meta.env.VITE_IS_WEB}
-  <div class="toolbar" {@attach windowDarg}>
-    <div class="left">
+  <div class="toolbar" data-mobile-header {@attach windowDarg}>
+    <div class="left" data-mobile-header-search>
       <SearchInput />
     </div>
     <!-- <SearchInput /> -->

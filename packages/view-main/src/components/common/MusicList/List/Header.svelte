@@ -17,7 +17,7 @@
   // console.log(params)
 </script>
 
-<div class="header">
+<div class="header" data-mobile-list-header>
   <div class="num" style={`width:${picwidth}px;`}>
     {#if multimode}
       <Checkbox

@@ -13,7 +13,7 @@
   })
 </script>
 
-<div class="container">
+<div class="container" data-mobile-track-info>
   <p class="name">{musicLabel}</p>
   <p class="status-text">{status}</p>
 </div>

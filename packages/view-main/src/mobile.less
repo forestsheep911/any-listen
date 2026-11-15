@@ -1,0 +1,78 @@
+// Web presentation only. Uppercase PX keeps touch geometry out of postcss-pxtorem.
+@media (max-width: 767px) {
+  html.web {
+    &, &.fullscreen { min-width: 0; min-height: 0; height: 100vh; height: 100dvh; padding: 0; overflow: hidden; }
+    body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+    #root, #body, #container { min-width: 0; min-height: 0; border-radius: 0; box-shadow: none; }
+    #view { min-height: 0; min-width: 0; }
+    input, textarea, select { font-size: 16PX !important; max-width: 100%; }
+    button, a { touch-action: manipulation; }
+    [data-mobile-header] { height: 58PX; padding-top: env(safe-area-inset-top); box-sizing: content-box; }
+    [data-mobile-header] > :not([data-mobile-header-search]) { display: none; }
+    [data-mobile-header-search] { margin: 0 12PX; min-width: 0; }
+    [data-mobile-header] .search-input { width: 100%; min-width: 0; max-width: none; height: 44PX; }
+    [data-mobile-header] .search-input .form { min-height: 44PX; }
+    .player { height: 64PX; }
+    .player-inner.padding { padding-right: 4PX; }
+    [data-mobile-art] { padding: 8PX; }
+    [data-mobile-track-info] { min-width: 0; }
+    [data-mobile-track-info] .name { font-size: 13PX; }
+    [data-mobile-track-info] .status-text { font-size: 12PX; height: 18PX; }
+    [data-mobile-play-buttons] { gap: 0; padding: 0; }
+    [data-mobile-play-buttons] button { width: 44PX; height: 44PX; align-items: center; justify-content: center; }
+    [data-mobile-play-buttons] button:first-child { display: none; }
+    [data-mobile-play-buttons] svg { width: 32PX; height: 32PX; }
+    [data-mobile-player-extras] { gap: 0; padding: 0; }
+    [data-mobile-player-extras] > :not(:nth-child(2)) { display: none; }
+    [data-mobile-player-extras] > :nth-child(2) { min-width: 44PX; min-height: 44PX; }
+    [data-mobile-mini-progress] { display: none; }
+    [data-mobile-music-row] { gap: 6PX; font-size: 14PX; }
+    [data-mobile-music-row] [data-mobile-secondary] { display: none; }
+    [data-mobile-music-row] .name-cell { order: 0; min-width: 0; }
+    [data-mobile-music-row] .pic { max-width: 42PX; max-height: 42PX; }
+    .mobile-row-actions { display: flex; flex: none; order: 2; }
+    .mobile-row-actions button { width: 44PX; height: 44PX; border: 0; background: transparent; color: var(--color-font); font-size: 18PX; }
+    [data-mobile-list-header] > span:nth-last-child(-n+3) { display: none; }
+    [data-mobile-popup] { max-width: calc(100vw - 24PX) !important; max-height: calc(100dvh - 100PX) !important; }
+    [data-mobile-popup] .popup-content { max-width: calc(100vw - 24PX); overflow: auto; }
+    [data-mobile-popup] .popup-content > * { max-width: calc(100vw - 24PX); min-width: 0; }
+    [data-mobile-modal] { min-width: 0 !important; width: calc(100% - 24PX) !important; max-width: calc(100% - 24PX) !important; min-height: 0 !important; max-height: calc(100% - 32PX - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important; overflow: auto; overscroll-behavior: contain; }
+    [data-mobile-modal] > .header { position: sticky; top: 0; flex: none; min-height: 44PX; z-index: 2; background: var(--color-app-background); }
+    [data-mobile-modal] > .header button { width: 44PX; height: 44PX; }
+    [data-mobile-player-footer] .middle-play-progress { min-height: 44PX; }
+    [data-mobile-settings] .settings-item-content { margin-left: 8PX; }
+    [data-mobile-settings] :is(.p, .settings-item-selection, .settings-item-input, .settings-item-radio-group, .settings-item-config-checkbox) { display: flex; flex-wrap: wrap; gap: 8PX; min-width: 0; }
+    [data-mobile-settings] :is(button, .btn), [data-mobile-extensions] :is(button, .btn) { min-height: 44PX; }
+    [data-mobile-settings] .settings-item, [data-mobile-extensions] { min-width: 0; overflow-wrap: anywhere; }
+    [data-mobile-settings] > header, [data-mobile-extensions] > header { overflow-x: auto; flex-wrap: nowrap; min-height: 48PX; }
+    [data-mobile-extensions] > header > * { flex: none; }
+    [data-mobile-extension-store] { grid-template-columns: minmax(0, 1fr); padding: 8PX; }
+    .play-detail { border-radius: 0; padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom); box-sizing: border-box; }
+    [data-mobile-detail-header] { flex-basis: 44PX; }
+    [data-mobile-detail-header] button { min-width: 44PX; min-height: 44PX; }
+    [data-mobile-detail-header] .fullscreen { display: none; }
+    .mobile-player-tabs { display: flex; flex: none; justify-content: center; gap: 8PX; }
+    .mobile-player-tabs button { min-width: 88PX; min-height: 44PX; border: 0; border-radius: 24PX; color: var(--color-font); background: transparent; }
+    .mobile-player-tabs button[aria-pressed=true] { background: var(--color-primary-background-selected); }
+    .player-detail-main { flex-direction: column; }
+    .player-detail-main .left-info { width: 100%; height: 100%; padding: 12PX 20PX; --content-width: min(72vw, 34vh); }
+    .player-detail-main .left-info .info { width: 100%; text-align: center; overflow: auto; margin-top: 12PX; }
+    .player-detail-main .right-lyric { display: none; }
+    .player-detail-main.mobile-lyrics .left-info { display: none; }
+    .player-detail-main.mobile-lyrics .right-lyric { display: block; width: 100%; height: 100%; }
+    [data-mobile-player-footer] { height: 156PX; contain: none; }
+    [data-mobile-player-footer] .footer-content { padding: 0 12PX 8PX; }
+    [data-mobile-player-footer] .control { flex-wrap: wrap; justify-content: center; }
+    [data-mobile-full-play-buttons] { order: -1; width: 100%; height: 56PX; justify-content: center; padding: 0; gap: 24PX; }
+    [data-mobile-full-play-buttons] button { width: 44PX; height: 44PX; justify-content: center; align-items: center; }
+    [data-mobile-full-play-buttons] svg { max-width: 44PX; max-height: 44PX; }
+    [data-mobile-player-footer] .side { flex: auto; padding: 0; height: 44PX; justify-content: center; margin: 0; }
+    [data-mobile-player-footer] .side button { min-width: 36PX; min-height: 44PX; }
+    [data-mobile-player-footer] .side:first-child { display: none; }
+  }
+}
+@media (max-width: 767px) and (max-height: 500px) {
+  html.web .player-detail-main .left-info { flex-direction: row; gap: 16PX; --content-width: min(26vw, 30vh); }
+  html.web [data-mobile-player-footer] { height: 112PX; }
+  html.web [data-mobile-player-footer] .side { display: none; }
+}

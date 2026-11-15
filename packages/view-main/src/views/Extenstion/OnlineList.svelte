@@ -22,7 +22,7 @@
 
 <div class="container">
   {#if list.val.length}
-    <ul class="list" {@attach verticalScrollbar({ offset: '0.22rem' })}>
+    <ul class="list" data-mobile-extension-store {@attach verticalScrollbar({ offset: '0.22rem' })}>
       {#each list.val as ext (ext.id)}
         <ListItemOnline
           {ext}

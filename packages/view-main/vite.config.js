@@ -76,7 +76,7 @@ export const buildConfig = (target, port = 9200, ipcScript) => {
               tag: 'meta',
               attrs: {
                 name: 'viewport',
-                content: 'width=device-width,initial-scale=1.0',
+                content: target == 'web' ? 'width=device-width,initial-scale=1.0,viewport-fit=cover' : 'width=device-width,initial-scale=1.0',
               },
             },
             target == 'web' &&

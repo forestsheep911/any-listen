@@ -7,10 +7,12 @@
   import CenterFullBar from './CenterFullBar.svelte'
   import { useSettingValue } from '@/modules/setting/reactive.svelte'
 
+  import { mobileViewport } from '@/shared/browser/mobile.svelte'
+
   const playBarProgressStyle = useSettingValue('common.playBarProgressStyle')
 </script>
 
-{#if playBarProgressStyle.val == 'mini'}
+{#if mobileViewport.active || playBarProgressStyle.val == 'mini'}
   <MiniBar />
 {:else if playBarProgressStyle.val == 'middle'}
   <MiddleBar />

@@ -141,7 +141,7 @@
     >
       <div
         role="presentation"
-        class="content"
+        class="content" data-mobile-modal
         tabindex="-1"
         style={contentStyle}
         style:min-height={minheight}

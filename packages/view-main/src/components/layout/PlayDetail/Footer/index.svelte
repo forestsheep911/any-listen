@@ -9,7 +9,7 @@
   let { introend }: { introend: boolean } = $props()
 </script>
 
-<div class="footer">
+<div class="footer" data-mobile-player-footer>
   {#if introend}
     <div in:fade={{ delay: 5 }} class="footer-content">
       <div class="control">
