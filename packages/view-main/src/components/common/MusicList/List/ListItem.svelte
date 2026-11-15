@@ -17,6 +17,7 @@
   // console.log(querystring)
   let {
     musicinfo,
+    multimode = false,
     listid,
     index,
     source,
@@ -30,6 +31,7 @@
     onplay,
   }: {
     musicinfo: AnyListen.Music.MusicInfo
+    multimode?: boolean
     listid: string
     source: AnyListen.Player.SourceType
     index: number
@@ -117,10 +119,10 @@
       </div>
     {/if}
   </div>
-  {#if mobileViewport.active}
+  {#if mobileViewport.active && !multimode}
     <div class="mobile-row-actions">
-      <button aria-label={$t('player__play')} onclick={(event) => { event.stopPropagation(); onplay?.() }}>▶</button>
-      <button aria-label="更多操作" onclick={(event) => { event.stopPropagation(); oncontextmenu?.(event) }}>⋯</button>
+      <MusicHeartBtn {musicinfo} min />
+      <button aria-label="更多操作" onclick={(event) => { event.stopPropagation(); oncontextmenu?.(event) }}><SvgIcon name="more" /></button>
     </div>
   {/if}
   <div class="list-item-cell auto name-cell">

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { mobileViewport } from '@/shared/browser/mobile.svelte'
   import SvgIcon from '@/components/base/SvgIcon.svelte'
   import Image from '@/components/base/Image.svelte'
   import type { MouseEventHandler } from 'svelte/elements'
@@ -25,7 +26,7 @@
 
   const handleSelect = () => {
     const url = `/library?id=${listInfo.id}`
-    if ($location == '/library') {
+    if ($location == '/library' && !(mobileViewport.active && $query.panel === 'playlists')) {
       void replace(url)
     } else {
       void push(url)

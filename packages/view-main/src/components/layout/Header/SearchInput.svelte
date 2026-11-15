@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { mobileViewport } from '@/shared/browser/mobile.svelte'
   import SearchInput from '@/components/material/SearchInput.svelte'
   import { tipSearch as search } from '@/modules/resource/search/tip'
   import { getLocation, query } from '@/plugins/routes'
@@ -160,7 +161,7 @@
   --width="52%"
   --max-width="38rem"
   --min-width="15rem"
-  placeholder={$t('search.placeholder')}
+  placeholder={mobileViewport.active ? '搜索歌曲或歌手' : $t('search.placeholder')}
   bind:this={searchInput}
   oninput={(text: string) => {
     tipSearch(text.trim())

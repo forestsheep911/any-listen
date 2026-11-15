@@ -51,9 +51,12 @@
       padding-top: env(safe-area-inset-top);
       box-sizing: content-box;
     }
-    [data-mobile-header] > :not([data-mobile-header-search]) {
+    [data-mobile-header] > :not([data-mobile-header-search], [data-mobile-header-more]) {
       display: none;
     }
+    [data-mobile-header-more] { flex: none; margin-right: 8px; }
+    [data-mobile-header-more] button { width: 44px; height: 44px; }
+    .mobile-context { font-size: 20px; font-weight: 600; }
     [data-mobile-header-search] {
       margin: 0 12px;
       min-width: 0;
@@ -76,6 +79,7 @@
     [data-mobile-art] {
       padding: 8px;
     }
+    .mobile-track-open { flex: 1; min-width: 0; min-height: 44px; text-align: left; padding: 0; border: 0; color: inherit; background: transparent; }
     [data-mobile-track-info] {
       min-width: 0;
     }
@@ -96,7 +100,7 @@
       align-items: center;
       justify-content: center;
     }
-    [data-mobile-play-buttons] button:first-child {
+    [data-mobile-play-buttons] button:is(:first-child, :last-child) {
       display: none;
     }
     [data-mobile-play-buttons] svg {
@@ -107,13 +111,14 @@
       gap: 0;
       padding: 0;
     }
-    [data-mobile-player-extras] > :not(:nth-child(2)) {
+    [data-mobile-player-extras] > :nth-child(n + 3) {
       display: none;
     }
-    [data-mobile-player-extras] > :nth-child(2) {
+    [data-mobile-player-extras] > :nth-child(-n + 2) {
       min-width: 44px;
       min-height: 44px;
     }
+    [data-mobile-player-extras] button { min-width: 44px; min-height: 44px; }
     [data-mobile-mini-progress] {
       display: none;
     }
@@ -123,37 +128,21 @@
     }
     .mobile-singer { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--color-font-label); font-size: 12px; }
     #view [class^='online-search-'], #view .online-songlist-list { flex-direction: column; min-height: 0; }
-    #view .source-list { flex: none; width: auto; max-width: none; min-width: 0; margin: 0 12px 8px; overflow-x: auto; }
-    #view .source-list .list { display: flex; width: max-content; min-width: 100%; height: 44px; }
-    #view .source-list .list-item { flex: none; max-width: none; line-height: 44px; padding: 0 12px; }
-    [data-mobile-library-header] {
-      gap: 12px;
-      padding: 12px;
-    }
-    [data-mobile-library-header] > .left {
-      flex: none;
-      width: 80px;
-      height: 80px;
-    }
-    [data-mobile-library-header] > .right {
-      min-width: 0;
-      padding: 0;
-    }
-    [data-mobile-library-header] .title {
-      font-size: 20px;
-      overflow-wrap: anywhere;
-    }
-    [data-mobile-library-header] .control-btns {
-      gap: 8px;
-      margin-top: 8px;
-    }
-    [data-mobile-library-header] .btns {
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-    [data-mobile-library-header] .btn {
-      min-height: 44px;
-    }
+    .mobile-source-picker { display: flex; flex: none; align-items: center; gap: 12px; margin: 0 12px 8px; color: var(--color-font-label); font-size: 13px; }
+    .mobile-source-picker select { flex: 1; min-width: 0; min-height: 44px; padding: 0 12px; border: 1px solid var(--color-border); border-radius: 10px; background: var(--color-app-background); color: var(--color-font); }
+    .mobile-library-heading { display: flex; flex: none; flex-direction: column; gap: 10px; padding: 12px; }
+    .mobile-library-heading .mobile-list-controls { margin: 0; }
+    .mobile-list-title { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+    .mobile-list-title h3 { font-size: 21px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .mobile-list-title span { flex: none; color: var(--color-font-label); font-size: 12px; }
+    .mobile-list-controls { display: flex; flex: none; margin: 0 12px 8px; justify-content: space-between; gap: 12px; }
+    .mobile-list-controls > .btn { flex: 1; background: var(--color-primary-background); }
+    .mobile-list-controls button { min-height: 44px; min-width: 44px; }
+    .mobile-empty-love { margin: auto 24px; padding: 24px 0; text-align: center; }
+    .mobile-empty-love h3 { font-size: 20px; }
+    .mobile-empty-love p { margin: 12px 0; color: var(--color-font-label); line-height: 1.6; }
+    .mobile-empty-love button { min-height: 44px; padding: 0 20px; background: var(--color-primary-background); color: var(--color-font); border: 0; border-radius: 22px; }
+    [data-mobile-popup] .menu-item { min-height: 44px; }
     [data-mobile-music-row] [data-mobile-secondary] {
       display: none;
     }

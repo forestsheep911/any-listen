@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { mobileViewport } from '@/shared/browser/mobile.svelte'
   import Tab from '@/components/base/Tab.svelte'
   import { i18n } from '@/plugins/i18n'
   import { tabIcons, viewResourceMap, viewTypes, urlParamKeyMap } from './shared.svelte'
@@ -19,6 +20,7 @@
 </script>
 
 <header class="header">
+  {#if !mobileViewport.active || typeList.length > 1}
   <Tab
     list={typeList}
     itemkey="id"
@@ -30,6 +32,7 @@
       pushRoute('/online', { [urlParamKeyMap.type]: item.id })
     }}
   />
+  {/if}
   <div id="online-header-right"></div>
 </header>
 

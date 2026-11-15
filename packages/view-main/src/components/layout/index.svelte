@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { tick } from 'svelte'
+  import SvgIcon from '@/components/base/SvgIcon.svelte'
   import { mobileViewport } from '@/shared/browser/mobile.svelte'
-  import { link, location, query, push } from '@/plugins/routes'
+  import { link, location, query, push, replace, type Params } from '@/plugins/routes'
   import { LIST_IDS } from '@any-listen/common/constants'
   import { toOnlineSearch } from '@/modules/resource/actions'
   import { useOnlineResourceAvailable } from '@/views/Online/shared.svelte'
@@ -10,63 +10,48 @@
   import Main from '@/components/layout/Main.svelte'
   import PlayBar from '@/components/layout/PlayBar/index.svelte'
   import PlayDetail from '@/components/layout/PlayDetail/index.svelte'
-  let drawerOpen = $state(false)
-  let drawer: HTMLDivElement | undefined = $state()
-  let libraryButton: HTMLButtonElement | undefined = $state()
+  let drawerOpen = $derived(mobileViewport.active && $location === '/library' && $query.panel === 'playlists')
   let searchNotice = $state(false)
-  const resources = useOnlineResourceAvailable()
-  const closeDrawer = () => {
-    drawerOpen = false
-    libraryButton?.focus()
-  }
-  const openDrawer = async () => {
-    drawerOpen = true
-    await tick()
-    drawer?.querySelector<HTMLButtonElement>('button')?.focus()
-  }
-  const drawerKeys = (event: KeyboardEvent) => {
-    if (!mobileViewport.active || !drawerOpen) return
-    if (event.key === 'Escape') closeDrawer()
-    if (event.key !== 'Tab' || !drawer) return
-    const items = Array.from(drawer.querySelectorAll<HTMLElement>('button, a, input, [tabindex="0"]')).filter((el) => el.getClientRects().length)
-    const first = items[0]
-    const last = items.at(-1)
-    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus() }
-    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus() }
-  }
+  let lastOnline: { path: string; params: Params } | undefined
   $effect(() => {
-    if (!mobileViewport.active) drawerOpen = false
+    if ($location.startsWith('/online')) lastOnline = { path: $location, params: { ...$query } }
   })
-  let active = $derived($location.startsWith('/online') ? 'search' : $location === '/settings' ? 'settings' : $location === '/extenstion' ? 'extensions' : $query.id === LIST_IDS.LAST_PLAYED ? 'history' : 'library')
+  const resources = useOnlineResourceAvailable()
+  const closeDrawer = () => { if (drawerOpen) void replace('/library', { id: $query.id || LIST_IDS.LOVE }) }
+  const openDrawer = () => {
+    searchNotice = false
+    if (!drawerOpen) void push('/library', { id: $query.id || LIST_IDS.LOVE, panel: 'playlists' })
+  }
+  const openSearch = () => {
+    if (!resources.val) { searchNotice = !searchNotice; return }
+    searchNotice = false
+    if ($location.startsWith('/online')) return
+    if (lastOnline) void push(lastOnline.path, lastOnline.params)
+    else void toOnlineSearch()
+  }
+  let active = $derived(drawerOpen ? 'playlists' : $location.startsWith('/online') ? 'search' : $location === '/library' && $query.id === LIST_IDS.LOVE ? 'love' : $location === '/library' && $query.id !== LIST_IDS.LAST_PLAYED ? 'playlists' : '')
 </script>
 
 <div id="app-main">
-  {#if mobileViewport.active && drawerOpen}
-    <button class="mobile-backdrop" aria-label="关闭曲库" onclick={closeDrawer}></button>
-  {/if}
-  <div class="library-shell" class:drawer-open={drawerOpen} bind:this={drawer}
-    role={mobileViewport.active ? 'dialog' : undefined} aria-modal={mobileViewport.active && drawerOpen ? true : undefined}
-    aria-label={mobileViewport.active ? '曲库' : undefined} tabindex="-1"
-    inert={mobileViewport.active && !drawerOpen} onkeydown={drawerKeys}
-    onkeyup={(event) => { if (mobileViewport.active && (event.key === 'Enter' || event.key === ' ') && event.target instanceof Element && event.target.closest('[data-mobile-select-list]')) closeDrawer() }}
-    onclickcapture={(event) => { if (mobileViewport.active && event.target instanceof Element && event.target.closest('a[href], [data-mobile-select-list]')) closeDrawer() }}>
-    {#if mobileViewport.active}<button class="drawer-close" onclick={closeDrawer}>关闭曲库 ×</button>{/if}
+  <div class="library-shell" class:drawer-open={drawerOpen}
+    inert={mobileViewport.active && !drawerOpen}
+    role="region" aria-label="歌单" tabindex="-1"
+    onkeydown={(event) => { if (event.key === 'Escape') closeDrawer() }}>
+    {#if mobileViewport.active}<div class="playlist-heading"><h2>歌单</h2><button class="drawer-close" onclick={closeDrawer}>返回歌曲</button></div>{/if}
     <Aside />
     {#if mobileViewport.active}<a class="mobile-source" href="https://github.com/forestsheep911/any-listen/tree/mobile-web" target="_blank" rel="noreferrer">开源代码 ↗</a>{/if}
   </div>
-  <div id="app-right" inert={mobileViewport.active && drawerOpen}>
+  <div id="app-right" inert={drawerOpen}>
     <Header />
     <Main />
   </div>
 </div>
-<div class="playbar-shell" inert={mobileViewport.active && drawerOpen}><PlayBar /></div>
+<div class="playbar-shell"><PlayBar /></div>
 {#if import.meta.env.VITE_IS_WEB}
-  <nav class="mobile-nav" aria-label="主导航" inert={drawerOpen}>
-    <button bind:this={libraryButton} class:active={active === 'library'} aria-expanded={drawerOpen} onclick={openDrawer}>♫<span>曲库</span></button>
-    <button class:active={active === 'search'} onclick={() => { if (resources.val) { searchNotice = false; void toOnlineSearch() } else searchNotice = !searchNotice }}>⌕<span>搜索</span></button>
-    <a class:active={active === 'history'} href={`/library?id=${LIST_IDS.LAST_PLAYED}`} {@attach link()}>◷<span>最近</span></a>
-    <a class:active={active === 'extensions'} href="/extenstion" {@attach link()}>◇<span>扩展</span></a>
-    <a class:active={active === 'settings'} href="/settings" {@attach link()}>⚙<span>设置</span></a>
+  <nav class="mobile-nav" aria-label="主导航">
+    <button class:active={active === 'search'} aria-current={active === 'search' ? 'page' : undefined} onclick={openSearch}><SvgIcon name="search" /><span>搜索</span></button>
+    <a class:active={active === 'love'} aria-current={active === 'love' ? 'page' : undefined} href={`/library?id=${LIST_IDS.LOVE}`} {@attach link()}><SvgIcon name="love" /><span>喜欢</span></a>
+    <button class:active={active === 'playlists'} aria-expanded={drawerOpen} onclick={openDrawer}><SvgIcon name="albums" /><span>歌单</span></button>
   </nav>
   {#if searchNotice && mobileViewport.active}
     <div class="mobile-search-notice" role="status">搜索需要启用在线资源扩展。<button onclick={() => { searchNotice = false; void push('/extenstion') }}>打开扩展</button><button aria-label="关闭提示" onclick={() => searchNotice = false}>×</button></div>
@@ -83,10 +68,14 @@
     :global(html.web) {
       #app-main, #app-right { min-width: 0; min-height: 0; }
       .library-shell { display: none; }
-      .library-shell.drawer-open { position: absolute; inset: 0 auto 0 0; z-index: 41; display: flex; flex-direction: column; width: min(86vw, 340PX); max-width: none; padding-top: env(safe-area-inset-top); background: var(--color-app-background); }
+      .library-shell.drawer-open { position: absolute; inset: 0; z-index: 41; display: flex; flex-direction: column; width: 100%; max-width: none; padding-top: env(safe-area-inset-top); background: var(--color-app-background); }
       .library-shell :global(.aside) { flex: 1; min-height: 0; overflow: auto; }
       .drawer-close, .mobile-source { flex: none; padding: 14PX; color: var(--color-font); background: var(--color-app-background); border: none; text-align: left; }
-      .mobile-backdrop { position: absolute; inset: 0; z-index: 40; background: #0008; border: 0; }
+      .library-shell :global(.aside-logo), .library-shell :global(.aside-nav) { display: none; }
+      .playlist-heading { display: flex; align-items: center; justify-content: space-between; padding: 4PX 12PX; }
+      .playlist-heading h2 { font-size: 22PX; }
+      .drawer-close { min-height: 44PX; }
+      .mobile-nav :global(svg) { width: 22PX; height: 22PX; }
       .mobile-nav { position: relative; z-index: 3; display: flex; flex: none; justify-content: space-around; padding: 4PX 4PX calc(4PX + env(safe-area-inset-bottom)); background: var(--color-app-background); border-top: 1PX solid var(--color-border); }
       .mobile-nav > :is(a, button) { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; gap: 3PX; min-height: 48PX; padding: 2PX; color: var(--color-font-label); background: none; border: 0; text-decoration: none; font-size: 22PX; }
       .mobile-nav span { font-size: 12PX; }

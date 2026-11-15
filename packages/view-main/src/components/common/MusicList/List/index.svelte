@@ -1,4 +1,7 @@
 <script lang="ts">
+  import { mobileViewport } from '@/shared/browser/mobile.svelte'
+  import { LIST_IDS } from '@any-listen/common/constants'
+  import { push } from '@/plugins/routes'
   import VirtualizedList from '@/components/base/VirtualizedList.svelte'
   import { useListItemHeight } from '@/modules/app/reactive.svelte'
   import Menu from './Menu.svelte'
@@ -154,6 +157,7 @@
           musicinfo={item}
           listid={listinfo.id}
           {source}
+          {multimode}
           active={activeIndex == index}
           selected={select.list.includes(item)}
           selectedactive={hotkey.isShiftDown && select.selectIndex == index}
@@ -182,6 +186,10 @@
               select.handleSelect(index)
             } else {
               select.setSelectIndex(index)
+              if (mobileViewport.active) {
+                void playMusic(listinfo.id, list, item, source, getListMetaInfo(listinfo))
+                return
+              }
               void musicClick(list, listinfo.id, item, source, getListMetaInfo(listinfo))
               if (isKey) {
                 void musicClick(list, listinfo.id, item, source, getListMetaInfo(listinfo))
@@ -211,7 +219,9 @@
     />
   </div>
 {:else if loaded}
-  <Empty />
+  {#if mobileViewport.active && listinfo.id === LIST_IDS.LOVE}
+    <div class="mobile-empty-love"><h3>把喜欢的歌留在这里</h3><p>搜索歌曲，轻点爱心，下次打开就能听。</p><button onclick={() => { void push('/online') }}>去搜索音乐</button></div>
+  {:else}<Empty />{/if}
 {/if}
 <SearchList
   bind:visible={finding}

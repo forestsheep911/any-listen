@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { mobileViewport } from '@/shared/browser/mobile.svelte'
+  import MiniHeader from './MiniHeader.svelte'
   import Btn from '@/components/base/Btn.svelte'
   import SvgIcon from '@/components/base/SvgIcon.svelte'
   import { t } from '@/plugins/i18n'
@@ -41,6 +43,12 @@
   } = $props()
 </script>
 
+{#if mobileViewport.active}
+  <div class="mobile-library-heading" data-mobile-library-header>
+    <div class="mobile-list-title"><h3>{listinfo.name}</h3><span>{musiccount} 首歌曲</span></div>
+    <MiniHeader {source} {disabled} {musiccount} {multimode} {finding} {saveable} {onplay} {onplayrandom} {onsave} {onsaveasgeneral} {onmulti} {onfind} {onduplicate} {onsort} />
+  </div>
+{:else}
 <div class="header" data-mobile-library-header>
   <div class="left">
     <Image src={listinfo.pic} icon={listinfo.picIcon} />
@@ -114,6 +122,8 @@
     </div>
   </div>
 </div>
+
+{/if}
 
 <style lang="less">
   .header {
