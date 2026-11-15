@@ -98,6 +98,15 @@
       border: 1px solid var(--mobile-border);
       border-radius: 16px;
     }
+    [data-mobile-header] .search-input .content { border-radius: 16px; overflow: hidden; background: var(--mobile-surface); box-shadow: 0 2px 8px #191b2305; }
+    [data-mobile-header] .search-input .content .form input { padding: 0 12px; color: var(--mobile-ink); }
+    [data-mobile-header] .search-input .content .form button { flex: none; width: 40px; min-width: 40px; height: 48px; padding: 12px 10px; color: var(--mobile-muted); background: transparent; }
+    [data-mobile-header] .search-input .content .form button:hover { background: var(--mobile-canvas); }
+    [data-mobile-header] .search-input .content .form button svg { width: 20px; height: 20px; }
+    [data-mobile-pagination] { max-width: calc(100vw - 24px); overflow-x: auto; background: transparent; }
+    [data-mobile-pagination] ul { gap: 4px; }
+    [data-mobile-pagination] li > :is(button, span) { display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border-radius: 50% !important; background: var(--mobile-surface); color: var(--mobile-muted); }
+    [data-mobile-pagination] li.active > span { background: var(--mobile-accent); color: white; }
     .playbar-shell { padding: 10px 12px 12px; background: var(--mobile-canvas); }
     .player {
       height: 64px;

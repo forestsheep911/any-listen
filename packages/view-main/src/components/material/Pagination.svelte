@@ -24,7 +24,7 @@
 </script>
 
 {#if maxPage > 1}
-  <div class="pagination">
+  <div class="pagination" data-mobile-pagination>
     <ul>
       {#if page == 1}
         <li class="disabled">
