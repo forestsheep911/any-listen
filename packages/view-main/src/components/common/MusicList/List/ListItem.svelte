@@ -127,9 +127,13 @@
     <div class="name-left">
       <div class="select name" aria-label={musicinfo.name}>{musicinfo.name}</div>
       <div class="label">
+        {#if mobileViewport.active}
+          <span class="mobile-singer">{musicinfo.singer}</span>
+        {:else}
         {#each sourceLabel as label, index (index)}
           <Badge {label} opacity={0.7} type={badgeTypes[index % badgeTypes.length]} />
         {/each}
+        {/if}
       </div>
     </div>
     {#if isShowActionBtn.val && !mobileViewport.active}

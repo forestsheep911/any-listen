@@ -1,4 +1,4 @@
-// Web presentation only. Uppercase PX keeps touch geometry out of postcss-pxtorem.
+// The html selector keeps CSS pixel touch sizes out of postcss-pxtorem.
 @media (max-width: 767px) {
   html.web {
     &,
@@ -121,6 +121,11 @@
       gap: 6px;
       font-size: 14px;
     }
+    .mobile-singer { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--color-font-label); font-size: 12px; }
+    #view [class^='online-search-'], #view .online-songlist-list { flex-direction: column; min-height: 0; }
+    #view .source-list { flex: none; width: auto; max-width: none; min-width: 0; margin: 0 12px 8px; overflow-x: auto; }
+    #view .source-list .list { display: flex; width: max-content; min-width: 100%; height: 44px; }
+    #view .source-list .list-item { flex: none; max-width: none; line-height: 44px; padding: 0 12px; }
     [data-mobile-library-header] {
       gap: 12px;
       padding: 12px;
