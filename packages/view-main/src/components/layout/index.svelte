@@ -78,7 +78,11 @@
       .library-shell :global(.aside-logo), .library-shell :global(.aside-nav) { display: none; }
       .playlist-heading { display: flex; align-items: center; justify-content: space-between; padding: 12PX 20PX; }
       .playlist-actions { display: flex; align-items: center; gap: 4PX; }
-      .playlist-heading h2 { font-size: 22PX; }
+      .playlist-heading h2 { font-size: 28PX; font-weight: 750; letter-spacing: -0.6PX; }
+      .library-shell :global(.list-item) { margin: 0 12PX 8PX; padding: 0; }
+      .library-shell :global([data-mobile-select-list]) { min-height: 76PX; padding: 10PX 12PX; gap: 12PX; border-radius: 16PX; background: var(--mobile-surface); }
+      .library-shell :global([data-mobile-select-list] > .left) { width: 52PX !important; height: 52PX !important; border-radius: 12PX; overflow: hidden; }
+      .library-shell :global([data-mobile-select-list] .right > span) { font-size: 16PX; font-weight: 600; }
       .drawer-close { min-height: 44PX; }
       .mobile-nav :global(svg) { width: 22PX; height: 22PX; }
       .mobile-nav { position: relative; z-index: 3; display: flex; flex: none; justify-content: space-around; padding: 4PX 4PX calc(4PX + env(safe-area-inset-bottom)); background: var(--mobile-surface); border-top: 1PX solid var(--mobile-border); }
