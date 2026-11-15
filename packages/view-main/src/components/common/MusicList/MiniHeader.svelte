@@ -41,7 +41,7 @@
 {#if mobileViewport.active}
     <div class="mobile-list-controls">
       <Btn disabled={!musiccount || disabled} icontext onclick={onplay}><SvgIcon name="play" />{$t('play_all')}</Btn>
-      <Dropdown aria-label={$t('btn_more')} menu={[
+      <Dropdown aria-label="搜索结果操作" autoshow={false} menu={[
         { key: 'random', label: $t('play_random'), icon: 'list-random', disabled: !musiccount || disabled, onclick: onplayrandom },
         { key: 'multi', label: multimode ? $t('batch_select_exit') : $t('batch_select'), icon: 'multiple', onclick: onmulti },
         { key: 'find', label: finding ? $t('find_music_exit') : $t('find_music'), icon: 'search', onclick: onfind },

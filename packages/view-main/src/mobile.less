@@ -47,7 +47,7 @@
       touch-action: manipulation;
     }
     [data-mobile-header] {
-      height: 58px;
+      height: 52px;
       padding-top: env(safe-area-inset-top);
       box-sizing: content-box;
     }
@@ -55,8 +55,9 @@
       display: none;
     }
     [data-mobile-header-more] { flex: none; margin-right: 8px; }
-    [data-mobile-header-more] button { width: 44px; height: 44px; }
-    .mobile-context { font-size: 20px; font-weight: 600; }
+    [data-mobile-header-more] > button.btn { flex: none; width: 44px; height: 44px; aspect-ratio: auto; }
+    [data-mobile-header-more] > button.btn > svg { width: 22px; height: 22px; }
+    .mobile-context { font-size: 18px; font-weight: 600; }
     [data-mobile-header-search] {
       margin: 0 12px;
       min-width: 0;
@@ -119,6 +120,7 @@
       min-height: 44px;
     }
     [data-mobile-player-extras] button { min-width: 44px; min-height: 44px; }
+    [data-mobile-player-extras] button > svg { width: 22px; height: 22px; }
     [data-mobile-mini-progress] {
       display: none;
     }
@@ -135,8 +137,10 @@
     .mobile-list-title { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
     .mobile-list-title h3 { font-size: 21px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .mobile-list-title span { flex: none; color: var(--color-font-label); font-size: 12px; }
-    .mobile-list-controls { display: flex; flex: none; margin: 0 12px 8px; justify-content: space-between; gap: 12px; }
-    .mobile-list-controls > .btn { flex: 1; background: var(--color-primary-background); }
+    .mobile-list-controls { display: flex; flex: none; height: 44px; margin: 0 12px 8px; align-items: center; justify-content: space-between; gap: 12px; }
+    .mobile-list-controls > button.btn:first-child { flex: 1; height: 44px; background: var(--color-primary-background); }
+    .mobile-list-controls > button.btn:last-child { flex: 0 0 44px; width: 44px; height: 44px; aspect-ratio: auto; }
+    .mobile-list-controls > button.btn > svg { width: 20px; height: 20px; }
     .mobile-list-controls button { min-height: 44px; min-width: 44px; }
     .mobile-empty-love { margin: auto 24px; padding: 24px 0; text-align: center; }
     .mobile-empty-love h3 { font-size: 20px; }

@@ -1,5 +1,6 @@
 <script lang="ts">
   import SvgIcon from '@/components/base/SvgIcon.svelte'
+  import MobileMore from '@/components/layout/Header/MobileMore.svelte'
   import { mobileViewport } from '@/shared/browser/mobile.svelte'
   import { link, location, query, push, replace, type Params } from '@/plugins/routes'
   import { LIST_IDS } from '@any-listen/common/constants'
@@ -40,7 +41,7 @@
     inert={mobileViewport.active && !drawerOpen}
     role="region" aria-label="歌单" tabindex="-1"
     >
-    {#if mobileViewport.active}<div class="playlist-heading"><h2>歌单</h2><button class="drawer-close" onclick={closeDrawer}>返回歌曲</button></div>{/if}
+    {#if mobileViewport.active}<div class="playlist-heading"><h2>歌单</h2><div class="playlist-actions"><button class="drawer-close" onclick={closeDrawer}>返回歌曲</button><MobileMore /></div></div>{/if}
     <Aside />
     {#if mobileViewport.active}<a class="mobile-source" href="https://github.com/forestsheep911/any-listen/tree/mobile-web" target="_blank" rel="noreferrer">开源代码 ↗</a>{/if}
   </div>
@@ -76,6 +77,7 @@
       .drawer-close, .mobile-source { flex: none; padding: 14PX; color: var(--color-font); background: var(--color-app-background); border: none; text-align: left; }
       .library-shell :global(.aside-logo), .library-shell :global(.aside-nav) { display: none; }
       .playlist-heading { display: flex; align-items: center; justify-content: space-between; padding: 4PX 12PX; }
+      .playlist-actions { display: flex; align-items: center; gap: 4PX; }
       .playlist-heading h2 { font-size: 22PX; }
       .drawer-close { min-height: 44PX; }
       .mobile-nav :global(svg) { width: 22PX; height: 22PX; }
