@@ -46,7 +46,9 @@
 {#if mobileViewport.active}
   <div class="mobile-library-heading" data-mobile-library-header>
     <div class="mobile-list-title"><h3>{listinfo.name}</h3><span>{musiccount} 首歌曲</span></div>
-    <MiniHeader library {source} {disabled} {musiccount} {multimode} {finding} {saveable} {onplay} {onplayrandom} {onsave} {onsaveasgeneral} {onmulti} {onfind} {onduplicate} {onsort} />
+    {#if musiccount || multimode || finding}
+      <MiniHeader library {source} {disabled} {musiccount} {multimode} {finding} {saveable} {onplay} {onplayrandom} {onsave} {onsaveasgeneral} {onmulti} {onfind} {onduplicate} {onsort} />
+    {/if}
   </div>
 {:else}
 <div class="header" data-mobile-library-header>

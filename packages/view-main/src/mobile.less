@@ -75,6 +75,7 @@
     [data-mobile-header-more] { flex: none; margin-right: 8px; }
     [data-mobile-header-more] > button.btn { flex: none; width: 44px; height: 44px; aspect-ratio: auto; }
     [data-mobile-header-more] > button.btn > svg { width: 22px; height: 22px; }
+    [data-mobile-header-more] > button.btn { border-radius: 50%; background: var(--mobile-surface); box-shadow: 0 1px 4px #191b2308; }
     .mobile-context { font-size: 19px; font-weight: 700; letter-spacing: -0.5px; }
     [data-mobile-playlist-tools] { display: flex; align-items: center; justify-content: space-between; }
     [data-mobile-playlist-tools] button { min-height: 44px; padding: 0 16px; border: 0; border-radius: 22px; background: var(--color-primary-background); color: var(--color-primary-font); }
@@ -112,6 +113,8 @@
     .mobile-card-progress span { display: block; height: 100%; background: var(--mobile-accent); border-radius: 2px; }
     [data-mobile-art] button { border-radius: 10px; overflow: hidden; }
     .player button { color: white; }
+    .player .music-heart-btn.unloved .btn { color: #d4d6df; }
+    .player .music-heart-btn:not(.unloved) .btn { color: #fff; }
     [data-mobile-art] {
       padding: 10px;
     }
@@ -186,11 +189,11 @@
     .mobile-list-title span { flex: none; color: var(--color-font-label); font-size: 12px; }
     .mobile-list-controls { display: flex; flex: none; height: 44px; margin: 0 20px 10px; align-items: center; justify-content: space-between; gap: 12px; }
     .mobile-list-controls > button.btn:first-of-type { flex: none; height: 44px; padding: 0 16px; border-radius: 24px; background: var(--color-primary-background); color: var(--mobile-accent); }
-    .mobile-library-controls > button.btn:first-child { flex: 1; }
+    .mobile-library-controls > button.btn:first-child { flex: 1; background: var(--mobile-accent); color: #fff; }
     .mobile-section-title { flex: 1; display: flex; align-items: baseline; gap: 8px; }
     .mobile-section-title h3 { font-size: 21px; font-weight: 700; letter-spacing: -0.4px; }
     .mobile-section-title span { color: var(--mobile-muted); font-size: 13px; }
-    .mobile-list-controls > button.btn:last-child { flex: 0 0 44px; width: 44px; height: 44px; aspect-ratio: auto; }
+    .mobile-list-controls > button.btn:last-child { flex: 0 0 44px; width: 44px; height: 44px; aspect-ratio: auto; border-radius: 50%; background: var(--mobile-surface); }
     .mobile-list-controls > button.btn > svg { width: 20px; height: 20px; }
     .mobile-list-controls button { min-height: 44px; min-width: 44px; }
     .mobile-empty-love { margin: auto 24px; padding: 24px 0; text-align: center; }
