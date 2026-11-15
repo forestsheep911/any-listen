@@ -2,7 +2,6 @@
   import { mobileViewport } from '@/shared/browser/mobile.svelte'
   import SvgIcon from '@/components/base/SvgIcon.svelte'
   import Image from '@/components/base/Image.svelte'
-  import type { MouseEventHandler } from 'svelte/elements'
   import { location, push, query, replace } from '@/plugins/routes'
   import { useFetchingListStatus, useListCover } from '@/modules/musicLibrary/reactive.svelte'
   import { LIST_PIC_ICON } from '@/shared/constants'
@@ -17,7 +16,7 @@
     index: number
     active?: boolean
     picStyle: string
-    oncontextmenu?: MouseEventHandler<HTMLDivElement>
+    oncontextmenu?: (event: MouseEvent) => void
   } = $props()
 
   const fetching = useFetchingListStatus(listInfo.id)
@@ -43,6 +42,7 @@
   data-ignore-tip
   tabindex="0"
   onkeydown={(event) => {
+    if (event.target !== event.currentTarget) return
     if (event.repeat) return
     switch (event.key) {
       case 'Enter':
@@ -66,6 +66,9 @@
       <!-- <span><SvgIcon name="headphones" /> {listInfo.meta.playCount}</span> -->
     </div>
   </div>
+  {#if mobileViewport.active}
+    <button class="mobile-list-menu" aria-label={`管理${listInfo.name}`} onclick={(event) => { event.stopPropagation(); oncontextmenu?.(event) }}><SvgIcon name="more" /></button>
+  {/if}
 </div>
 
 <style lang="less">
