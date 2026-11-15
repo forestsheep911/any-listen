@@ -20,7 +20,8 @@
   const closeDrawer = () => { if (drawerOpen) void replace('/library', { id: $query.id || LIST_IDS.LOVE }) }
   const openDrawer = () => {
     searchNotice = false
-    if (!drawerOpen) void push('/library', { id: $query.id || LIST_IDS.LOVE, panel: 'playlists' })
+    const id = $location === '/library' ? $query.id || LIST_IDS.LOVE : LIST_IDS.LOVE
+    if (!drawerOpen) void push('/library', { id, panel: 'playlists' })
   }
   const openSearch = () => {
     if (!resources.val) { searchNotice = !searchNotice; return }
@@ -32,11 +33,13 @@
   let active = $derived(drawerOpen ? 'playlists' : $location.startsWith('/online') ? 'search' : $location === '/library' && $query.id === LIST_IDS.LOVE ? 'love' : $location === '/library' && $query.id !== LIST_IDS.LAST_PLAYED ? 'playlists' : '')
 </script>
 
+<svelte:window onkeydown={(event) => { if (!event.defaultPrevented && event.key === 'Escape') closeDrawer() }} />
+
 <div id="app-main">
   <div class="library-shell" class:drawer-open={drawerOpen}
     inert={mobileViewport.active && !drawerOpen}
     role="region" aria-label="歌单" tabindex="-1"
-    onkeydown={(event) => { if (event.key === 'Escape') closeDrawer() }}>
+    >
     {#if mobileViewport.active}<div class="playlist-heading"><h2>歌单</h2><button class="drawer-close" onclick={closeDrawer}>返回歌曲</button></div>{/if}
     <Aside />
     {#if mobileViewport.active}<a class="mobile-source" href="https://github.com/forestsheep911/any-listen/tree/mobile-web" target="_blank" rel="noreferrer">开源代码 ↗</a>{/if}

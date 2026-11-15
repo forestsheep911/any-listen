@@ -142,7 +142,7 @@
   $effect(() => {
     const id = $query.id
     if (!$userListsAll.some((l) => l.id == id) && $userListInited) {
-      void replace(`/library?id=${LIST_IDS.LOVE}`)
+      void replace('/library', { id: LIST_IDS.LOVE, ...($query.panel === 'playlists' ? { panel: 'playlists' } : {}) })
     }
   })
 </script>
