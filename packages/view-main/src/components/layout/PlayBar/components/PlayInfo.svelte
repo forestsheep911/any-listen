@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { mobileViewport } from '@/shared/browser/mobile.svelte'
   import { lyricLine, lyricLines } from '@/modules/lyric/reactive.svelte'
   import { musicInfo, playerPlaying, statusText } from '@/modules/player/reactive.svelte'
   import { useSettingValue } from '@/modules/setting/reactive.svelte'
@@ -14,8 +15,13 @@
 </script>
 
 <div class="container" data-mobile-track-info>
-  <p class="name">{musicLabel}</p>
-  <p class="status-text">{status}</p>
+  {#if mobileViewport.active}
+    <p class="name">{$musicInfo.name || 'Any Listen'}</p>
+    <p class="status-text">{$musicInfo.singer || '随时听你喜欢'}</p>
+  {:else}
+    <p class="name">{musicLabel}</p>
+    <p class="status-text">{status}</p>
+  {/if}
 </div>
 
 <style lang="less">

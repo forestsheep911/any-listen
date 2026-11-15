@@ -1,4 +1,5 @@
 <script lang="ts">
+  import SvgIcon from '@/components/base/SvgIcon.svelte'
   import { mobileViewport } from '@/shared/browser/mobile.svelte'
   import { LIST_IDS } from '@any-listen/common/constants'
   import { push } from '@/plugins/routes'
@@ -48,7 +49,8 @@
     $playMusicInfo?.listId == listinfo.id ? list.findIndex((m) => m.id == $playMusicInfo.musicInfo.id) : -1
   )
   let listItemHeight = useListItemHeight(3.2)
-  let picwidth = $derived(listItemHeight.val * 0.8)
+  let rowHeight = $derived(mobileViewport.active ? Math.max(64, listItemHeight.val) : listItemHeight.val)
+  let picwidth = $derived(mobileViewport.active ? 44 : listItemHeight.val * 0.8)
   let picStyle = $derived(`height:${picwidth}px; width:${picwidth}px;`)
   let activeIndex = $state(-1)
   let itv: number | null = null
@@ -147,7 +149,7 @@
     <VirtualizedList
       {list}
       keyname="id"
-      itemheight={listItemHeight.val}
+      itemheight={rowHeight}
       bind:this={virtualizedList}
       containerclass="my-list"
       {onscroll}
@@ -220,7 +222,7 @@
   </div>
 {:else if loaded}
   {#if mobileViewport.active && listinfo.id === LIST_IDS.LOVE}
-    <div class="mobile-empty-love"><h3>把喜欢的歌留在这里</h3><p>搜索歌曲，轻点爱心，下次打开就能听。</p><button onclick={() => { void push('/online') }}>去搜索音乐</button></div>
+    <div class="mobile-empty-love"><div class="mobile-empty-icon"><SvgIcon name="love" /></div><h3>把喜欢的歌留在这里</h3><p>搜索歌曲，轻点爱心，下次打开就能听。</p><button onclick={() => { void push('/online') }}>去搜索音乐</button></div>
   {:else}<Empty />{/if}
 {/if}
 <SearchList

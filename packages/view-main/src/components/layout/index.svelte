@@ -72,19 +72,19 @@
     :global(html.web) {
       #app-main, #app-right { min-width: 0; min-height: 0; }
       .library-shell { display: none; }
-      .library-shell.drawer-open { position: absolute; inset: 0; z-index: 41; display: flex; flex-direction: column; width: 100%; max-width: none; padding-top: env(safe-area-inset-top); background: var(--color-content-background); }
+      .library-shell.drawer-open { position: absolute; inset: 0; z-index: 41; display: flex; flex-direction: column; width: 100%; max-width: none; padding-top: env(safe-area-inset-top); background: var(--mobile-canvas); }
       .library-shell :global(.aside) { flex: 1; min-height: 0; overflow: auto; }
-      .drawer-close, .mobile-source { flex: none; padding: 14PX; color: var(--color-font); background: var(--color-app-background); border: none; text-align: left; }
+      .drawer-close, .mobile-source { flex: none; padding: 14PX; color: var(--color-font); background: transparent; border: none; text-align: left; }
       .library-shell :global(.aside-logo), .library-shell :global(.aside-nav) { display: none; }
-      .playlist-heading { display: flex; align-items: center; justify-content: space-between; padding: 4PX 12PX; }
+      .playlist-heading { display: flex; align-items: center; justify-content: space-between; padding: 12PX 20PX; }
       .playlist-actions { display: flex; align-items: center; gap: 4PX; }
       .playlist-heading h2 { font-size: 22PX; }
       .drawer-close { min-height: 44PX; }
       .mobile-nav :global(svg) { width: 22PX; height: 22PX; }
-      .mobile-nav { position: relative; z-index: 3; display: flex; flex: none; justify-content: space-around; padding: 4PX 4PX calc(4PX + env(safe-area-inset-bottom)); background: var(--color-app-background); border-top: 1PX solid var(--color-border); }
-      .mobile-nav > :is(a, button) { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; gap: 3PX; min-height: 48PX; padding: 2PX; color: var(--color-font-label); background: none; border: 0; text-decoration: none; font-size: 22PX; }
+      .mobile-nav { position: relative; z-index: 3; display: flex; flex: none; justify-content: space-around; padding: 4PX 4PX calc(4PX + env(safe-area-inset-bottom)); background: var(--mobile-surface); border-top: 1PX solid var(--mobile-border); }
+      .mobile-nav > :is(a, button) { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; gap: 3PX; min-height: 48PX; padding: 2PX; color: var(--mobile-muted); background: none; border: 0; text-decoration: none; font-size: 22PX; }
       .mobile-nav span { font-size: 12PX; }
-      .mobile-nav .active { color: var(--color-primary-font); background: var(--color-primary-background-selected); border-radius: 10PX; }
+      .mobile-nav .active { color: var(--mobile-accent); font-weight: 600; }
       .mobile-search-notice { position: absolute; bottom: calc(126PX + env(safe-area-inset-bottom)); left: 12PX; right: 12PX; z-index: 9; padding: 14PX; background: var(--color-app-background); border: 1PX solid var(--color-border); border-radius: 12PX; }
       .mobile-search-notice button { min-height: 44PX; padding: 8PX; }
     }

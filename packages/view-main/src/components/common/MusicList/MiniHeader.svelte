@@ -6,6 +6,7 @@
   import Dropdown from '@/components/material/Dropdown.svelte'
   import { t } from '@/plugins/i18n'
   let {
+    library = false,
     source,
     disabled,
     musiccount,
@@ -21,6 +22,7 @@
     onduplicate,
     onsort,
   }: {
+    library?: boolean
     source: AnyListen.Player.SourceType
     disabled: boolean
     musiccount: number
@@ -39,7 +41,8 @@
 </script>
 
 {#if mobileViewport.active}
-    <div class="mobile-list-controls">
+    <div class="mobile-list-controls" class:mobile-library-controls={library}>
+      {#if !library}<div class="mobile-section-title"><h3>歌曲</h3><span>{musiccount}</span></div>{/if}
       <Btn disabled={!musiccount || disabled} icontext onclick={onplay}><SvgIcon name="play" />{$t('play_all')}</Btn>
       <Dropdown aria-label="歌曲操作" autoshow={false} menu={[
         { key: 'random', label: $t('play_random'), icon: 'list-random', disabled: !musiccount || disabled, onclick: onplayrandom },

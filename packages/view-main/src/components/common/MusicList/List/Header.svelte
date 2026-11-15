@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { mobileViewport } from '@/shared/browser/mobile.svelte'
   import Checkbox from '@/components/base/Checkbox.svelte'
   import { t } from '@/plugins/i18n'
   let {
@@ -17,6 +18,7 @@
   // console.log(params)
 </script>
 
+{#if !mobileViewport.active || multimode}
 <div class="header" data-mobile-list-header>
   <div class="num" style={`width:${picwidth}px;`}>
     {#if multimode}
@@ -38,6 +40,7 @@
   <span style="width: 22%;">{$t('music_album')}</span>
   <span style="width: 9%;">{$t('music_time')}</span>
 </div>
+{/if}
 
 <style lang="less">
   .header {
