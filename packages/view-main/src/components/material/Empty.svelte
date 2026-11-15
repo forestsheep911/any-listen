@@ -7,7 +7,7 @@
 
 <div class="no-item" class:mobile-empty={mobileViewport.active}>
   {#if mobileViewport.active}<SvgIcon name="music" />{/if}
-  <p>{label || (mobileViewport.active ? '这里还没有歌曲' : $t('no_item'))}</p>
+  <p>{label || $t('no_item')}</p>
 </div>
 
 <style lang="less">

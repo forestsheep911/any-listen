@@ -21,7 +21,7 @@
 {#if loading}
   <div class="loading" in:fade={{ delay: 800, duration: 200 }} out:fade={{ duration: 200 }}>
     {#if mobileViewport.active}
-      <p class="content mobile-loading" role="status"><span class="mobile-spinner" aria-hidden="true"></span>正在加载歌曲</p>
+      <p class="content mobile-loading" role="status"><span class="mobile-spinner" aria-hidden="true"></span>{$t('list_loading').replace('⏳', '').trim()}</p>
     {:else}<p class="content">{$t('list_loading')}</p>{/if}
   </div>
 {/if}
