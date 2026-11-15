@@ -4,7 +4,6 @@
   import Image from '@/components/base/Image.svelte'
 
   // import SvgIcon from '@/components/base/SvgIcon.svelte'
-  import type { MouseEventHandler } from 'svelte/elements'
   import { fade } from 'svelte/transition'
   import { buildSourceLabel } from '@any-listen/common/tools'
   import { onMount, tick } from 'svelte'
@@ -39,7 +38,7 @@
     selected?: boolean
     active?: boolean
     selectedactive?: boolean
-    oncontextmenu?: MouseEventHandler<HTMLDivElement>
+    oncontextmenu?: (event: MouseEvent) => void
     onclick: (isKey: boolean) => void
     onplay?: () => void
   } = $props()
