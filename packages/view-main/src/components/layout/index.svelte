@@ -72,7 +72,7 @@
     :global(html.web) {
       #app-main, #app-right { min-width: 0; min-height: 0; }
       .library-shell { display: none; }
-      .library-shell.drawer-open { position: absolute; inset: 0; z-index: 41; display: flex; flex-direction: column; width: 100%; max-width: none; padding-top: env(safe-area-inset-top); background: var(--color-app-background); }
+      .library-shell.drawer-open { position: absolute; inset: 0; z-index: 41; display: flex; flex-direction: column; width: 100%; max-width: none; padding-top: env(safe-area-inset-top); background: var(--color-content-background); }
       .library-shell :global(.aside) { flex: 1; min-height: 0; overflow: auto; }
       .drawer-close, .mobile-source { flex: none; padding: 14PX; color: var(--color-font); background: var(--color-app-background); border: none; text-align: left; }
       .library-shell :global(.aside-logo), .library-shell :global(.aside-nav) { display: none; }
