@@ -8,7 +8,6 @@ import { addListMusics, overwriteListMusics } from '@/modules/musicLibrary/store
 import { playList } from '@/modules/player/actions'
 import { setIsLinkedList } from '@/modules/player/store/actions'
 import { playerEvent } from '@/modules/player/store/event'
-import { getMusicUrl } from '@/modules/player/store/playerRemoteAction'
 import { playerState } from '@/modules/player/store/state'
 import { updateSetting } from '@/modules/setting/store/action'
 import { settingState } from '@/modules/setting/store/state'
@@ -87,12 +86,10 @@ const getSources = () => {
 const resolveSeed = async (
   seed: RadioSeed,
   sources: AnyListen.Extension.ResourceItem[],
-  run: RadioRun,
-  failures: Map<string, number>
+  run: RadioRun
 ): Promise<AnyListen.Music.MusicInfoOnline | null> => {
   for (const source of sources) {
     if (!isCurrent(run)) return null
-    if ((failures.get(source.id) ?? 0) >= 2) continue
     await waitForRequest()
     if (!isCurrent(run)) return null
     try {
@@ -107,16 +104,11 @@ const resolveSeed = async (
       if (!isCurrent(run)) return null
       const candidate = result.list.find((song) => isOriginalRadioMatch(seed, song) && !hasDislike(song))
       if (!candidate || run.tracks.some((song) => song.id === candidate.id)) continue
-      await waitForRequest()
-      if (!isCurrent(run)) return null
-      const { url } = await getMusicUrl({ musicInfo: candidate })
-      if (!isCurrent(run)) return null
-      if (/^https?:\/\//i.test(url)) return candidate
+      return candidate
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error)
       if (/timeout|timed out/i.test(message)) throw new Error('音乐源响应超时，请稍后重试。')
       if (/429|too many requests/i.test(message)) throw new Error('音乐源请求过于频繁，请稍后再试。')
-      failures.set(source.id, (failures.get(source.id) ?? 0) + 1)
     }
   }
   return null
@@ -175,11 +167,9 @@ export const startCasualRadio = async () => {
   const onShutdown = onRelease(cancelRadioPreparation)
   let errorMessage = ''
   try {
-    const failures = new Map<string, number>()
     for (const seed of buildRadioSeeds().slice(0, SEED_BUDGET)) {
       if (!isCurrent(run) || run.tracks.length >= BATCH_SIZE) break
-      if (sources.every((source) => (failures.get(source.id) ?? 0) >= 2)) break
-      const song = await resolveSeed(seed, sources, run, failures)
+      const song = await resolveSeed(seed, sources, run)
       if (!isCurrent(run)) break
       run.checked++
       if (song) {
@@ -206,7 +196,7 @@ export const startCasualRadio = async () => {
     } else if (run.cancelled) {
       radioState.set({ kind: 'idle' })
     } else {
-      radioState.set({ kind: 'error', message: errorMessage || '暂时没有找到可播放的原唱歌曲，请稍后再试或检查音乐源。' })
+      radioState.set({ kind: 'error', message: errorMessage || '暂时没有找到匹配的原唱歌曲，请稍后再试或检查音乐源。' })
     }
   }
 }

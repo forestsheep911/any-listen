@@ -7,7 +7,7 @@
   const description = $derived.by(() => {
     switch ($radioState.kind) {
       case 'preparing': return `正在找歌，请稍候 · 已准备 ${$radioState.count} 首`
-      case 'playing': return `正在播放 · 继续准备中，已有 ${$radioState.count} 首`
+      case 'playing': return `已找到 ${$radioState.count} 首 · 继续准备中`
       case 'stopping': return '正在停止准备，已播放的歌曲会继续'
       case 'ready': return `已准备 ${$radioState.count} 首 · 喜欢就点红心`
       case 'error': return $radioState.message
