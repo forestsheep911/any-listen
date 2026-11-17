@@ -69,10 +69,11 @@
     :global(html) .casual-radio .radio-note { font-size: 11px; }
     :global(html) .casual-radio .eyebrow { font-size: 12px; }
   }
-  @media (max-height: 500px) {
-    :global(html) .casual-radio { padding: 10px 14px; margin: 6px 12px; }
+  @media (max-width: 1023px) and (max-height: 500px) {
+    :global(html) .casual-radio { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 12px; margin: 6px 12px; }
+    :global(html) .casual-radio .radio-copy { flex: 1; min-width: 0; }
     :global(html) .casual-radio .eyebrow, :global(html) .casual-radio .radio-note { display: none; }
-    :global(html) .casual-radio h2 { margin: 0 0 4px; font-size: 16px; }
-    :global(html) .casual-radio .radio-actions { margin-top: 6px; }
+    :global(html) .casual-radio h2 { margin: 0 0 4px; font-size: 14px; }
+    :global(html) .casual-radio .radio-actions { flex: none; margin-top: 0; }
   }
 </style>
