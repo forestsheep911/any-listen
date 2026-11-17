@@ -126,7 +126,7 @@ const startPreparedList = async (run: RadioRun) => {
   if (!isCurrent(run) || !run.tracks.length) return
   const all = await getUserLists()
   if (!isCurrent(run)) return
-  const generated = all.userList.find((list) => list.type === 'general' && list.meta.desc === RADIO_LIST_MARKER)
+  const generated = all.find((list) => list.type === 'general' && list.meta.desc === RADIO_LIST_MARKER)
   let listId: string
   if (generated) {
     listId = generated.id
