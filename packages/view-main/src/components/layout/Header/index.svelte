@@ -1,4 +1,7 @@
 <script lang="ts">
+  import { mobileViewport } from '@/shared/browser/mobile.svelte'
+  import { location } from '@/plugins/routes'
+  import MobileMore from './MobileMore.svelte'
   import Logo from './Logo.svelte'
   import ControlBtns from './ControlBtns.svelte'
   import SearchInput from './SearchInput.svelte'
@@ -7,7 +10,7 @@
 
 {#if import.meta.env.VITE_IS_DESKTOP}
   <div class="toolbar drag-no-any-modal">
-    <div class="left">
+    <div class="left" data-mobile-header-search>
       <SearchInput />
     </div>
     <!-- <SearchInput /> -->
@@ -19,12 +22,17 @@
   </div>
 {/if}
 {#if import.meta.env.VITE_IS_WEB}
-  <div class="toolbar" {@attach windowDarg}>
-    <div class="left">
-      <SearchInput />
+  <div class="toolbar" data-mobile-header {@attach windowDarg}>
+    <div class="left" data-mobile-header-search>
+      {#if !mobileViewport.active || $location.startsWith('/online')}
+        <SearchInput />
+      {:else}
+        <h2 class="mobile-context">{$location === '/settings' ? '设置' : $location === '/extenstion' ? '扩展管理' : 'Any Listen'}</h2>
+      {/if}
     </div>
-    <!-- <SearchInput /> -->
-    <ControlBtns />
+    {#if mobileViewport.active}
+      <MobileMore />
+    {:else}<ControlBtns />{/if}
   </div>
 {/if}
 

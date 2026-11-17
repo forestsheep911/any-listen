@@ -1,9 +1,9 @@
 <script lang="ts">
+  import { mobileViewport } from '@/shared/browser/mobile.svelte'
   import Badge from '@/components/base/Badge.svelte'
   import Image from '@/components/base/Image.svelte'
 
   // import SvgIcon from '@/components/base/SvgIcon.svelte'
-  import type { MouseEventHandler } from 'svelte/elements'
   import { fade } from 'svelte/transition'
   import { buildSourceLabel } from '@any-listen/common/tools'
   import { onMount, tick } from 'svelte'
@@ -17,6 +17,7 @@
   // console.log(querystring)
   let {
     musicinfo,
+    multimode = false,
     listid,
     index,
     source,
@@ -30,6 +31,7 @@
     onplay,
   }: {
     musicinfo: AnyListen.Music.MusicInfo
+    multimode?: boolean
     listid: string
     source: AnyListen.Player.SourceType
     index: number
@@ -38,7 +40,7 @@
     selected?: boolean
     active?: boolean
     selectedactive?: boolean
-    oncontextmenu?: MouseEventHandler<HTMLDivElement>
+    oncontextmenu?: (event: MouseEvent) => void
     onclick: (isKey: boolean) => void
     onplay?: () => void
   } = $props()
@@ -52,6 +54,7 @@
 
   const handleClick = (event: KeyboardEvent | Event) => {
     if ('key' in event) {
+      if (event.target !== event.currentTarget) return
       if (event.repeat || event.key != 'Enter') return
       onclick(true)
     } else {
@@ -81,7 +84,7 @@
 </script>
 
 <div
-  class="container"
+  class="container" data-mobile-music-row
   class:selected
   class:active
   class:selectedactive
@@ -116,16 +119,26 @@
       </div>
     {/if}
   </div>
+  {#if mobileViewport.active && !multimode}
+    <div class="mobile-row-actions">
+      <MusicHeartBtn {musicinfo} min />
+      <button aria-label="更多操作" onclick={(event) => { event.stopPropagation(); oncontextmenu?.(event) }}><SvgIcon name="more" /></button>
+    </div>
+  {/if}
   <div class="list-item-cell auto name-cell">
     <div class="name-left">
       <div class="select name" aria-label={musicinfo.name}>{musicinfo.name}</div>
       <div class="label">
+        {#if mobileViewport.active}
+          <span class="mobile-singer">{musicinfo.singer}</span>
+        {:else}
         {#each sourceLabel as label, index (index)}
           <Badge {label} opacity={0.7} type={badgeTypes[index % badgeTypes.length]} />
         {/each}
+        {/if}
       </div>
     </div>
-    {#if isShowActionBtn.val}
+    {#if isShowActionBtn.val && !mobileViewport.active}
       <div class="name-right">
         {#if hovered}
           <div class="auto-hide-btns" transition:fade={{ duration: 200 }}>
@@ -150,13 +163,13 @@
       </div>
     {/if}
   </div>
-  <div class="list-item-cell" style="flex: 0 0 22%;">
+  <div class="list-item-cell" data-mobile-secondary style="flex: 0 0 22%;">
     <span class="select" aria-label={musicinfo.singer}>{musicinfo.singer}</span>
   </div>
-  <div class="list-item-cell" style="flex: 0 0 22%;">
+  <div class="list-item-cell" data-mobile-secondary style="flex: 0 0 22%;">
     <span class="select" aria-label={musicinfo.meta.albumName}>{musicinfo.meta.albumName}</span>
   </div>
-  <div class="list-item-cell" style="flex: 0 0 9%;">
+  <div class="list-item-cell" data-mobile-secondary style="flex: 0 0 9%;">
     <span class="no-select">{musicinfo.interval || '--/--'}</span>
   </div>
 </div>

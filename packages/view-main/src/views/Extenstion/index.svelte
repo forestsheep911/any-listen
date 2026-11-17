@@ -8,7 +8,7 @@
   let activeView = $derived<(typeof viewTypes)[number]>(viewTypes.find((t) => t == $query.type) ?? 'installed')
 </script>
 
-<div class="view-container container">
+<div class="view-container container" data-mobile-extensions>
   <Header activeview={activeView} />
   {#if activeView == 'online'}
     <OnlineList />

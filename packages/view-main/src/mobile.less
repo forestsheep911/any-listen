@@ -1,0 +1,454 @@
+// The html selector keeps CSS pixel touch sizes out of postcss-pxtorem.
+@media (max-width: 767px), (max-width: 1023px) and (max-height: 500px) {
+  html.web {
+    --mobile-canvas: #f7f7fa;
+    --mobile-ink: #191b23;
+    --mobile-muted: #777d89;
+    --mobile-surface: #fff;
+    --mobile-border: #e6e7ed;
+    --mobile-accent: var(--color-primary);
+    --mobile-player: #252832;
+    --color-app-background: var(--mobile-canvas);
+    --color-main-background: var(--mobile-canvas);
+    --color-button-font: var(--mobile-ink);
+    --color-content-background: var(--mobile-canvas);
+    --color-font: var(--mobile-ink);
+    --color-font-label: var(--mobile-muted);
+    --color-border: var(--mobile-border);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--mobile-ink);
+    background: var(--mobile-canvas);
+    &,
+    &.fullscreen {
+      min-width: 0;
+      min-height: 0;
+      height: 100vh;
+      height: 100dvh;
+      padding: 0;
+      overflow: hidden;
+    }
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    #root,
+    #body,
+    #container {
+      min-width: 0;
+      min-height: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+    #root::before { background: var(--mobile-canvas); opacity: 1; }
+    #view {
+      min-height: 0;
+      min-width: 0;
+    }
+    [data-mobile-login] .login-content {
+      width: calc(100% - 40px);
+      max-width: 350px;
+    }
+    [data-mobile-login] :is(.input, .btn) {
+      height: 44px;
+      min-height: 44px;
+    }
+    input,
+    textarea,
+    select {
+      font-size: 16px !important;
+      max-width: 100%;
+    }
+    button,
+    a {
+      touch-action: manipulation;
+    }
+    [data-mobile-header] {
+      height: 64px;
+      padding-top: env(safe-area-inset-top);
+      box-sizing: content-box;
+    }
+    [data-mobile-header] > :not([data-mobile-header-search], [data-mobile-header-more]) {
+      display: none;
+    }
+    [data-mobile-header-more] { flex: none; margin-right: 8px; }
+    [data-mobile-header-more] > button.btn { flex: none; width: 44px; height: 44px; aspect-ratio: auto; }
+    [data-mobile-header-more] > button.btn > svg { width: 22px; height: 22px; }
+    [data-mobile-header-more] > button.btn { border-radius: 50%; background: var(--mobile-surface); box-shadow: 0 1px 4px #191b2308; }
+    .mobile-context { font-size: 19px; font-weight: 700; letter-spacing: -0.5px; }
+    [data-mobile-playlist-tools] { display: flex; align-items: center; justify-content: space-between; }
+    [data-mobile-playlist-tools] button { min-height: 44px; padding: 0 16px; border: 0; border-radius: 22px; background: var(--color-primary-background); color: var(--color-primary-font); }
+    .mobile-list-menu { flex: none; width: 44px; height: 44px; padding: 0; border: 0; background: transparent; color: var(--color-font); }
+    .mobile-list-menu svg { width: 20px; height: 20px; }
+    [data-mobile-header-search] {
+      margin: 0 16px 0 20px;
+      min-width: 0;
+    }
+    [data-mobile-header] .search-input {
+      width: 100%;
+      min-width: 0;
+      max-width: none;
+      height: 48px;
+      border-radius: 16px;
+      background: var(--mobile-surface);
+    }
+    [data-mobile-header] .search-input .form {
+      min-height: 48px;
+      border: 1px solid var(--mobile-border);
+      border-radius: 16px;
+    }
+    [data-mobile-header] .search-input .content { border-radius: 16px; overflow: hidden; background: var(--mobile-surface); box-shadow: 0 2px 8px #191b2305; }
+    [data-mobile-header] .search-input .content .form input { padding: 0 12px; color: var(--mobile-ink); }
+    [data-mobile-header] .search-input .content .form button { flex: none; width: 40px; min-width: 40px; height: 48px; padding: 12px 10px; color: var(--mobile-muted); background: transparent; }
+    [data-mobile-header] .search-input .content .form button:hover { background: var(--mobile-canvas); }
+    [data-mobile-header] .search-input .content .form button svg { width: 20px; height: 20px; }
+    [data-mobile-pagination] { max-width: calc(100vw - 24px); overflow-x: auto; background: transparent; }
+    [data-mobile-pagination] ul { gap: 4px; }
+    [data-mobile-pagination] li > :is(button, span) { display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border-radius: 50% !important; background: var(--mobile-surface); color: var(--mobile-muted); }
+    [data-mobile-pagination] li.active > span { background: var(--mobile-accent); color: white; }
+    .playbar-shell { padding: 10px 12px 12px; background: var(--mobile-canvas); }
+    .player {
+      height: 64px;
+      border-radius: 18px;
+      background: var(--mobile-player);
+      box-shadow: 0 6px 18px #191b231c;
+      overflow: hidden;
+      color: white;
+    }
+    .player > .bg { background: var(--mobile-player); border-radius: 18px; opacity: 1; box-shadow: none; }
+    .player .player-inner.padding { padding-right: 10px; box-sizing: border-box; }
+    .mobile-card-progress { position: absolute; bottom: 0; left: 16px; right: 16px; height: 2px; background: #ffffff18; pointer-events: none; }
+    .mobile-card-progress span { display: block; height: 100%; background: var(--mobile-accent); border-radius: 2px; }
+    [data-mobile-art] button { border-radius: 10px; overflow: hidden; }
+    .player button { color: white; }
+    .player .music-heart-btn.unloved .btn { color: #d4d6df; }
+    .player .music-heart-btn:not(.unloved) .btn { color: #fff; }
+    [data-mobile-art] {
+      padding: 10px;
+    }
+    .mobile-track-open { flex: 1; min-width: 0; min-height: 44px; text-align: left; padding: 0; border: 0; color: inherit; background: transparent; }
+    [data-mobile-track-info] {
+      min-width: 0;
+    }
+    [data-mobile-track-info] .name {
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+    }
+    [data-mobile-track-info] .status-text {
+      font-size: 12px;
+      height: 18px;
+      color: #b8bbc5;
+    }
+    [data-mobile-play-buttons] {
+      gap: 0;
+      padding: 0;
+    }
+    [data-mobile-play-buttons] button {
+      width: 44px;
+      height: 44px;
+      align-items: center;
+      justify-content: center;
+    }
+    [data-mobile-play-buttons] button:is(:first-child, :last-child) {
+      display: none;
+    }
+    [data-mobile-play-buttons] button:nth-child(2) { border-radius: 50%; background: white; color: var(--mobile-player); }
+    [data-mobile-play-buttons] svg {
+      width: 26px;
+      height: 26px;
+    }
+    [data-mobile-player-extras] {
+      gap: 0;
+      padding: 0;
+    }
+    [data-mobile-player-extras] > :nth-child(n + 3) {
+      display: none;
+    }
+    [data-mobile-player-extras] > :nth-child(-n + 2) {
+      min-width: 44px;
+      min-height: 44px;
+    }
+    [data-mobile-player-extras] button { min-width: 44px; min-height: 44px; }
+    [data-mobile-player-extras] button svg { width: 22px !important; height: 22px !important; }
+    .mobile-loading { gap: 12px; color: var(--mobile-muted); font-size: 14px; }
+    .mobile-spinner { width: 24px; height: 24px; border: 2px solid var(--mobile-border); border-top-color: var(--mobile-accent); border-radius: 50%; animation: mobile-spin 1s linear infinite; }
+    .no-item.mobile-empty { gap: 16px; }
+    .mobile-empty > svg { width: 48px; height: 48px; color: var(--mobile-accent); opacity: 0.7; }
+    .no-item.mobile-empty p { margin: 0; font-size: 15px; }
+    .menu[role='menu'] .menu-item { min-height: 44px; padding: 8px 12px; }
+    [data-mobile-mini-progress] {
+      display: none;
+    }
+    [data-mobile-music-row] {
+      gap: 10px;
+      padding: 8px 4px 8px 10px;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+    .mobile-singer { line-height: 19px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--color-font-label); font-size: 12px; }
+    #view [class^='online-search-'], #view .online-songlist-list { flex-direction: column; min-height: 0; }
+    .mobile-source-picker { display: flex; flex: none; align-items: center; gap: 12px; margin: 4px 20px 14px; color: var(--color-font-label); font-size: 13px; }
+    .mobile-source-picker select { flex: 1; min-width: 0; min-height: 44px; padding: 0 12px; border: 1px solid var(--color-border); border-radius: 14px; background: var(--mobile-surface); color: var(--color-font); }
+    .mobile-library-heading { display: flex; flex: none; flex-direction: column; gap: 18px; padding: 16px 20px 18px; }
+    .mobile-library-heading .mobile-list-controls { margin: 0; }
+    .mobile-list-title { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+    .mobile-list-title h3 { font-size: 30px; font-weight: 750; letter-spacing: -0.8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .mobile-list-title span { flex: none; color: var(--color-font-label); font-size: 12px; }
+    .mobile-list-controls { display: flex; flex: none; height: 44px; margin: 0 20px 10px; align-items: center; justify-content: space-between; gap: 12px; }
+    .mobile-list-controls > button.btn:first-of-type { flex: none; height: 44px; padding: 0 16px; border-radius: 24px; background: var(--color-primary-background); color: var(--mobile-accent); }
+    .mobile-library-controls > button.btn:first-child { flex: 1; background: var(--mobile-accent); color: #fff; }
+    .mobile-section-title { flex: 1; display: flex; align-items: baseline; gap: 8px; }
+    .mobile-section-title h3 { font-size: 21px; font-weight: 700; letter-spacing: -0.4px; }
+    .mobile-section-title span { color: var(--mobile-muted); font-size: 13px; }
+    .mobile-list-controls > button.btn:last-child { flex: 0 0 44px; width: 44px; height: 44px; aspect-ratio: auto; border-radius: 50%; background: var(--mobile-surface); }
+    .mobile-list-controls > button.btn > svg { width: 20px; height: 20px; }
+    .mobile-list-controls button { min-height: 44px; min-width: 44px; }
+    .mobile-empty-love { margin: auto 24px; padding: 24px 0; text-align: center; }
+    .mobile-empty-love h3 { font-size: 22px; letter-spacing: -0.5px; }
+    .mobile-empty-icon { display: grid; place-items: center; width: 80px; height: 80px; margin: 0 auto 24px; border-radius: 28px; color: var(--mobile-accent); background: var(--color-primary-background); }
+    .mobile-empty-icon svg { width: 36px; height: 36px; }
+    .mobile-empty-love p { margin: 12px 0; color: var(--color-font-label); line-height: 1.6; }
+    .mobile-empty-love button { min-height: 44px; padding: 0 20px; background: var(--color-primary-background); color: var(--color-font); border: 0; border-radius: 22px; }
+    [data-mobile-popup] .menu-item { min-height: 44px; }
+    [data-mobile-music-row] [data-mobile-secondary] {
+      display: none;
+    }
+    [data-mobile-music-row] .name-cell {
+      order: 0;
+      min-width: 0;
+    }
+    [data-mobile-music-row] .pic {
+      width: 44px;
+      height: 44px;
+      border-radius: 9px;
+    }
+    [data-mobile-music-row] .name { font-weight: 600; line-height: 22px; }
+    [data-mobile-music-row] .name-left { gap: 0; }
+    [data-mobile-music-row] .label { padding-top: 0; }
+    .mobile-row-actions {
+      display: flex;
+      flex: none;
+      order: 2;
+    }
+    .mobile-row-actions button {
+      width: 44px;
+      height: 44px;
+      border: 0;
+      background: transparent;
+      color: var(--color-font);
+      font-size: 18px;
+    }
+    .mobile-row-actions button svg { width: 21px !important; height: 21px !important; }
+    [data-mobile-list-header] > span { display: none; }
+    [data-mobile-modal], [data-mobile-popup] .popup-content { border-radius: 20px; background: var(--mobile-surface); }
+    [data-mobile-settings] { background: var(--mobile-canvas); }
+    [data-mobile-playlist-tools] { padding: 12px 20px; }
+    [data-mobile-playlist-tools] h3 { font-size: 24px; font-weight: 700; }
+    .menu[role='menu'] { border-radius: 16px; background: var(--mobile-surface); border: 1px solid var(--mobile-border); }
+    [data-mobile-popup] {
+      max-width: calc(100vw - 24px) !important;
+      max-height: calc(100dvh - 100px) !important;
+    }
+    [data-mobile-popup] .popup-content {
+      max-width: calc(100vw - 24px);
+      overflow: auto;
+    }
+    [data-mobile-popup] .popup-content > * {
+      max-width: calc(100vw - 24px);
+      min-width: 0;
+    }
+    [data-mobile-modal] {
+      min-width: 0 !important;
+      width: calc(100% - 24px) !important;
+      max-width: calc(100% - 24px) !important;
+      min-height: 0 !important;
+      max-height: calc(100% - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
+      overflow: auto;
+      overscroll-behavior: contain;
+    }
+    [data-mobile-modal] > .header {
+      position: sticky;
+      top: 0;
+      flex: none;
+      min-height: 44px;
+      z-index: 2;
+      background: var(--color-app-background);
+    }
+    [data-mobile-modal] > .header button {
+      width: 44px;
+      height: 44px;
+    }
+    [data-mobile-player-footer] .middle-play-progress {
+      min-height: 44px;
+    }
+    [data-mobile-settings] .settings-item-content {
+      margin-left: 8px;
+    }
+    [data-mobile-settings] :is(.settings-app-container, .settings-extension-container) { flex-direction: column; }
+    [data-mobile-settings] :is(.settings-app-list, .settings-extension-list) { flex: none; width: auto; max-width: none; margin: 0 12px 8px; overflow-x: auto; }
+    [data-mobile-settings] :is(.settings-app-list, .settings-extension-list) .list { display: flex; width: max-content; min-width: 100%; height: 44px; }
+    [data-mobile-settings] :is(.settings-app-list, .settings-extension-list) .list-item { flex: none; max-width: none; line-height: 44px; padding: 0 12px; }
+    [data-mobile-settings] label { display: inline-flex; align-items: center; min-height: 44px; }
+    [data-mobile-settings] .settings-list-container { min-height: 0; }
+    [data-mobile-settings]
+      :is(.p, .settings-item-selection, .settings-item-input, .settings-item-radio-group, .settings-item-config-checkbox) {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      min-width: 0;
+    }
+    [data-mobile-settings] :is(button, .btn),
+    [data-mobile-extensions] :is(button, .btn) {
+      min-height: 44px;
+    }
+    [data-mobile-settings] .settings-item,
+    [data-mobile-extensions] {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+    [data-mobile-settings] > header,
+    [data-mobile-extensions] > header {
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      min-height: 48px;
+    }
+    [data-mobile-extensions] > header > * {
+      flex: none;
+    }
+    [data-mobile-extension-store] {
+      grid-template-columns: minmax(0, 1fr);
+      padding: 8px;
+    }
+    .play-detail {
+      border-radius: 0;
+      background: var(--mobile-canvas);
+      color: var(--mobile-ink);
+      padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+      box-sizing: border-box;
+    }
+    [data-mobile-detail-header] {
+      flex-basis: 44px;
+    }
+    [data-mobile-detail-header] button {
+      min-width: 44px;
+      min-height: 44px;
+    }
+    [data-mobile-detail-header] .fullscreen {
+      display: none;
+    }
+    .mobile-player-tabs {
+      display: flex;
+      flex: none;
+      justify-content: center;
+      gap: 8px;
+    }
+    .mobile-player-tabs button {
+      min-width: 88px;
+      min-height: 44px;
+      border: 0;
+      border-radius: 24px;
+      color: var(--color-font);
+      background: transparent;
+    }
+    .mobile-player-tabs button[aria-pressed='true'] {
+      background: var(--color-primary-background);
+      color: var(--mobile-accent);
+    }
+    .player-detail-main {
+      flex-direction: column;
+    }
+    .player-detail-main .left-info {
+      width: 100%;
+      height: 100%;
+      padding: 20px 24px 8px;
+      --content-width: min(76vw, 35vh);
+    }
+    .player-detail-main .left-info .info {
+      width: 100%;
+      text-align: center;
+      overflow: auto;
+      margin-top: 12px;
+    }
+    .player-detail-main .left-info .cover { border: 0; border-radius: 20px; box-shadow: 0 14px 32px #191b2320; }
+    .mobile-full-title { font-size: 24px; font-weight: 700; line-height: 1.25; letter-spacing: -0.6px; margin: 10px 0 8px; }
+    .player-detail-main .left-info .info .mobile-full-artist { font-size: 15px; color: var(--mobile-muted); }
+    .player-detail-main .right-lyric {
+      display: none;
+    }
+    .player-detail-main.mobile-lyrics .left-info {
+      display: none;
+    }
+    .player-detail-main.mobile-lyrics .right-lyric {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    [data-mobile-player-footer] {
+      height: 156px;
+      contain: none;
+    }
+    [data-mobile-player-footer] .footer-content {
+      padding: 0 12px 8px;
+    }
+    [data-mobile-player-footer] .control {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    [data-mobile-full-play-buttons] {
+      order: -1;
+      width: 100%;
+      height: 56px;
+      justify-content: center;
+      padding: 0;
+      gap: 24px;
+    }
+    [data-mobile-full-play-buttons] button {
+      width: 44px;
+      height: 44px;
+      justify-content: center;
+      align-items: center;
+    }
+    [data-mobile-full-play-buttons] svg {
+      max-width: 44px;
+      max-height: 44px;
+    }
+    [data-mobile-player-footer] .side {
+      flex: auto;
+      padding: 0;
+      height: 44px;
+      justify-content: center;
+      margin: 0;
+    }
+    [data-mobile-player-footer] .side button {
+      min-width: 36px;
+      min-height: 44px;
+    }
+    [data-mobile-player-footer] .side:first-child {
+      display: none;
+    }
+  }
+}
+@media (max-width: 1023px) and (max-height: 500px) {
+  html.web .player-detail-main .left-info {
+    flex-direction: row;
+    gap: 16px;
+    --content-width: min(26vw, 30vh);
+  }
+  html.web [data-mobile-player-footer] {
+    height: 112px;
+  }
+  html.web [data-mobile-player-footer] .side {
+    display: none;
+  }
+}
+
+@keyframes mobile-spin { to { transform: rotate(360deg); } }
+@media (min-width: 500px) and (max-width: 1023px) and (max-height: 500px) {
+  html.web .mobile-library-heading { flex-direction: row; align-items: center; gap: 16px; padding: 8px 16px; }
+  html.web .mobile-library-heading .mobile-list-title { flex: 1; }
+  html.web .mobile-library-heading .mobile-list-title h3 { font-size: 20px; }
+  html.web .mobile-library-heading .mobile-list-controls { flex: none; }
+}
+@media (prefers-reduced-motion: reduce) { html.web .mobile-spinner { animation: none; } }

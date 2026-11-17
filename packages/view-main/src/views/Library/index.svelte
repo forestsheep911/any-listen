@@ -1,4 +1,5 @@
 <script lang="ts">
+  import CasualRadio from '@/components/common/CasualRadio.svelte'
   import MusicList from '@/components/common/MusicList/MusicList.svelte'
   import { query, replace } from '@/plugins/routes'
   import { getListMusics } from '@/modules/musicLibrary/actions'
@@ -142,12 +143,13 @@
   $effect(() => {
     const id = $query.id
     if (!$userListsAll.some((l) => l.id == id) && $userListInited) {
-      void replace(`/library?id=${LIST_IDS.LOVE}`)
+      void replace('/library', { id: LIST_IDS.LOVE, ...($query.panel === 'playlists' ? { panel: 'playlists' } : {}) })
     }
   })
 </script>
 
 <div class="view-container container">
+  <CasualRadio />
   {#if listInfo}
     <MusicList bind:this={musicList} listinfo={listInfo} {list} onscroll={handleScroll} />
   {/if}

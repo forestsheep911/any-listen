@@ -1,3 +1,5 @@
+import { MOBILE_QUERY, mobileViewport } from './mobile.svelte'
+
 import { windowSizeList } from '@any-listen/common/constants'
 import { debounce } from '@any-listen/common/utils'
 
@@ -40,7 +42,14 @@ const resetWindow = () => {
   document.body.style.removeProperty('left')
   document.body.style.removeProperty('top')
 }
-export const initWindowInfo = () => {
+let releaseMobileViewport: (() => void) | undefined
+const applyWindowInfo = () => {
+  if (mobileViewport.active) {
+    setFullScreen(true)
+    setRootOffset(0, 0)
+    resetWindow()
+    return
+  }
   const info = getWindowInfo()
   if (info.isMaximized) {
     setFullScreen(true)
@@ -51,12 +60,25 @@ export const initWindowInfo = () => {
   setFullScreen(false)
   setRootOffset(info.offsetX, info.offsetY)
   document.body.style.position = 'absolute'
-  document.body.style.width = '1020px'
-  document.body.style.height = '670px'
+  const size = windowSizeList.find((item) => item.id == settingState.setting['common.windowSizeId'])
+  document.body.style.width = `${size?.width ?? 1020}px`
+  document.body.style.height = `${size?.height ?? 670}px`
   document.body.style.left = `${info.offsetX}px`
   document.body.style.top = `${info.offsetY}px`
 }
+export const initWindowInfo = () => {
+  releaseMobileViewport?.()
+  const media = window.matchMedia(MOBILE_QUERY)
+  const update = () => {
+    mobileViewport.active = media.matches
+    applyWindowInfo()
+  }
+  media.addEventListener('change', update)
+  releaseMobileViewport = () => media.removeEventListener('change', update)
+  update()
+}
 export const setMaximized = (maximized: boolean) => {
+  if (mobileViewport.active) return
   if (appState.isFullscreen == maximized) return
   setFullScreen(maximized)
   const info = getWindowInfo()
@@ -80,10 +102,14 @@ export const setMaximized = (maximized: boolean) => {
 }
 
 export const handleRelease = () => {
+  releaseMobileViewport?.()
+  releaseMobileViewport = undefined
+  mobileViewport.active = false
   resetWindow()
 }
 
 export const handleConfigChange = (keys: Array<keyof AnyListen.AppSetting>, setting: Partial<AnyListen.AppSetting>) => {
+  if (mobileViewport.active) return
   if (keys.includes('common.windowSizeId')) {
     if (appState.isFullscreen) return
     const targetSize = windowSizeList.find((w) => w.id == setting['common.windowSizeId'])
@@ -134,7 +160,7 @@ export const windowDarg = (dom: HTMLElement) => {
     minTop: 0,
   }
   const handleMove = (clientX: number, clientY: number) => {
-    if (!msEvent.isMsDown) return
+    if (mobileViewport.active || !msEvent.isMsDown) return
     const x = Math.max(msEvent.winX + clientX - msEvent.msDownX, msEvent.minLeft)
     const y = Math.max(msEvent.winY + clientY - msEvent.msDownY, msEvent.minTop)
     setRootOffset(x, y)
@@ -148,7 +174,7 @@ export const windowDarg = (dom: HTMLElement) => {
   }
 
   const handleDown = (clientX: number, clientY: number) => {
-    if (appState.isFullscreen) return
+    if (mobileViewport.active || appState.isFullscreen) return
     handleMouseUp()
     msEvent.msDownX = clientX
     msEvent.msDownY = clientY

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { mobileViewport } from '@/shared/browser/mobile.svelte'
   import Portal from '@/components/base/Portal.svelte'
   import { urlParamKeyMap, useActiveType, useResourceList, type ViewType } from '../shared.svelte'
   import Tab from '@/components/base/Tab.svelte'
@@ -55,6 +56,7 @@
   // $inspect(activeType)
 </script>
 
+{#if !mobileViewport.active || typeList.length > 1}
 <Portal to="#online-header-right">
   <Tab
     list={typeList}
@@ -67,6 +69,7 @@
     }}
   />
 </Portal>
+{/if}
 
 {#if activeType.val == 'music'}
   <Music sourceList={resource.val.musicSearch!} />

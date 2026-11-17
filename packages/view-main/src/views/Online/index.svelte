@@ -1,4 +1,5 @@
 <script lang="ts">
+  import CasualRadio from '@/components/common/CasualRadio.svelte'
   import Header from './Header.svelte'
   import { location, query } from '@/plugins/routes'
   import { urlParamKeyMap, viewResourceMap, viewTypes } from './shared.svelte'
@@ -34,6 +35,7 @@
 </script>
 
 <div class="view-container container">
+  <CasualRadio />
   {#if activeView}
     <Header activeview={activeView} />
     {#if activeView == 'search'}

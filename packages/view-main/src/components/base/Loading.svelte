@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { mobileViewport } from '@/shared/browser/mobile.svelte'
   import { t } from '@/plugins/i18n'
   import { fade } from 'svelte/transition'
   import Btn from './Btn.svelte'
@@ -19,7 +20,9 @@
 
 {#if loading}
   <div class="loading" in:fade={{ delay: 800, duration: 200 }} out:fade={{ duration: 200 }}>
-    <p class="content">{$t('list_loading')}</p>
+    {#if mobileViewport.active}
+      <p class="content mobile-loading" role="status"><span class="mobile-spinner" aria-hidden="true"></span>{$t('list_loading').replace('⏳', '').trim()}</p>
+    {:else}<p class="content">{$t('list_loading')}</p>{/if}
   </div>
 {/if}
 {#if error}

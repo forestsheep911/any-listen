@@ -1,10 +1,15 @@
 <script lang="ts">
   import { t } from '@/plugins/i18n'
+  import { mobileViewport } from '@/shared/browser/mobile.svelte'
+  import { showListEditModal } from '@/components/apis/listEditModal'
   // console.log(params)
 </script>
 
-<div class="container">
+<div class="container" data-mobile-playlist-tools>
   <h2>{$t('my_list')}</h2>
+  {#if mobileViewport.active}
+    <button onclick={() => { void showListEditModal() }}>新建歌单</button>
+  {/if}
 </div>
 
 <style lang="less">

@@ -99,7 +99,7 @@
   </div>
 {/if}
 {#if import.meta.env.VITE_IS_WEB}
-  <div class="header" {@attach windowDarg}>
+  <div class="header" data-mobile-detail-header {@attach windowDarg}>
     {@render content()}
   </div>
 {/if}

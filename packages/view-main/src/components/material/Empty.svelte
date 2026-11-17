@@ -1,9 +1,12 @@
 <script lang="ts">
+  import { mobileViewport } from '@/shared/browser/mobile.svelte'
+  import SvgIcon from '@/components/base/SvgIcon.svelte'
   import { t } from '@/plugins/i18n'
   let { label }: { label?: string } = $props()
 </script>
 
-<div class="no-item">
+<div class="no-item" class:mobile-empty={mobileViewport.active}>
+  {#if mobileViewport.active}<SvgIcon name="music" />{/if}
   <p>{label || $t('no_item')}</p>
 </div>
 

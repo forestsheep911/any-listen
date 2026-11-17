@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { mobileViewport } from '@/shared/browser/mobile.svelte'
   import SvgIcon from '@/components/base/SvgIcon.svelte'
   import { verticalScrollbar } from '@/shared/compositions/verticalScrollbar.svelte'
   import { extT } from '@/modules/extension/i18n'
@@ -15,6 +16,18 @@
   } = $props()
 </script>
 
+{#if mobileViewport.active}
+  <label class="mobile-source-picker">音乐来源
+    <select value={active ?? ''} onchange={(event) => {
+      const source = list.find((item) => item.sId === event.currentTarget.value)
+      if (source && source.sId !== active) onchange(source)
+    }}>
+      {#each list as source (source.sId)}
+        <option value={source.sId}>{$extT(source.extensionId, source.name).replace(/^gd[-_\s]+/i, '')}</option>
+      {/each}
+    </select>
+  </label>
+{:else}
 <div class="source-list">
   <div class="list" {@attach verticalScrollbar({ offset: '0', scrollbarWidth: '0.4rem' })}>
     {#each list as source (source.sId)}
@@ -42,6 +55,8 @@
     {/each}
   </div>
 </div>
+
+{/if}
 
 <style lang="less">
   .source-list {

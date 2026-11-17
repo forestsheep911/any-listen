@@ -1,3 +1,5 @@
+import { RADIO_LIST_MARKER } from '@/modules/casualRadio/catalog'
+import { musicLibraryState } from '@/modules/musicLibrary/store/state'
 import { onRelease } from '@/modules/app/shared'
 import { settingState } from '@/modules/setting/store/state'
 import { i18n } from '@/plugins/i18n'
@@ -7,6 +9,10 @@ import { onPlayerCreated } from '../shared'
 import { setMusicUrl, setStatusText, skipNext } from '../store/actions'
 import { playerEvent } from '../store/event'
 import { playerState } from '../store/state'
+
+const shouldAutoSkip = () => settingState.setting['player.autoSkipOnError'] || musicLibraryState.userLists.some(
+  (list) => list.type === 'general' && list.id === playerState.playInfo.listId && list.meta.desc === RADIO_LIST_MARKER
+)
 
 let retryNum = 0
 let prevTimeoutId: string | null = null
@@ -93,7 +99,7 @@ const handleError = (errCode?: number) => {
     return
   }
 
-  if (settingState.setting['player.autoSkipOnError']) {
+  if (shouldAutoSkip()) {
     if (document.hidden) {
       console.warn('error skip to next')
       void skipNext(true)
@@ -123,7 +129,7 @@ export const initPlayErrorHandler = () => {
       unregistered.add(
         playerEvent.on('playerLoadstart', () => {
           if (!playerState.playing) return
-          if (settingState.setting['player.autoSkipOnError']) startLoadingTimeout()
+          if (shouldAutoSkip()) startLoadingTimeout()
           setStatusText(i18n.t('player__loading'))
         })
       )
