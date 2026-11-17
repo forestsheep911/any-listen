@@ -1,4 +1,5 @@
 <script lang="ts">
+  import CasualRadio from '@/components/common/CasualRadio.svelte'
   import MusicList from '@/components/common/MusicList/MusicList.svelte'
   import { query, replace } from '@/plugins/routes'
   import { getListMusics } from '@/modules/musicLibrary/actions'
@@ -148,6 +149,7 @@
 </script>
 
 <div class="view-container container">
+  <CasualRadio />
   {#if listInfo}
     <MusicList bind:this={musicList} listinfo={listInfo} {list} onscroll={handleScroll} />
   {/if}
