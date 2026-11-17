@@ -445,4 +445,10 @@
 }
 
 @keyframes mobile-spin { to { transform: rotate(360deg); } }
+@media (min-width: 500px) and (max-width: 1023px) and (max-height: 500px) {
+  html.web .mobile-library-heading { flex-direction: row; align-items: center; gap: 16px; padding: 8px 16px; }
+  html.web .mobile-library-heading .mobile-list-title { flex: 1; }
+  html.web .mobile-library-heading .mobile-list-title h3 { font-size: 20px; }
+  html.web .mobile-library-heading .mobile-list-controls { flex: none; }
+}
 @media (prefers-reduced-motion: reduce) { html.web .mobile-spinner { animation: none; } }
